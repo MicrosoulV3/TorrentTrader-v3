@@ -1,0 +1,3 @@
+<Files "*.torrent">
+	deny from all
+</Files>
