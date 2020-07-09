@@ -20,7 +20,7 @@ elseif ($_GET[action] == "edit" && is_valid_id($_GET[id])) {
  print("<h1 align=\"center\">Edit Section or Item</h1>");
 
  $res = SQL_Query_exec("SELECT * FROM `faq` WHERE `id`='$_GET[id]' LIMIT 1");
- while ($arr = mysqli_fetch_array($res, MYSQL_BOTH)) {
+ while ($arr = mysqli_fetch_array($res, MYSQLI_BOTH)) {
   $arr[question] = stripslashes(htmlspecialchars($arr[question]));
   $arr[answer] = stripslashes(htmlspecialchars($arr[answer]));
   if ($arr[type] == "item") {
@@ -35,7 +35,7 @@ elseif ($_GET[action] == "edit" && is_valid_id($_GET[id])) {
    else print("<tr><td class='table_col2'>Status:</td><td class='table_col2'><select name=\"flag\" style=\"width: 110px;\"><option value=\"0\" style=\"color: #ff0000;\">Hidden</option><option value=\"1\" style=\"color: #000000;\" selected=\"selected\">Normal</option><option value=\"2\" style=\"color: #0000FF;\">Updated</option><option value=\"3\" style=\"color: #008000;\">New</option></select></td></tr>");
    print("<tr><td class='table_col1'>Category:</td><td class='table_col1'><select style=\"width: 300px;\" name=\"categ\">");
    $res2 = SQL_Query_exec("SELECT `id`, `question` FROM `faq` WHERE `type`='categ' ORDER BY `order` ASC");
-   while ($arr2 = mysqli_fetch_array($res2, MYSQL_BOTH)) {
+   while ($arr2 = mysqli_fetch_array($res2, MYSQLI_BOTH)) {
     $selected = ($arr2[id] == $arr[categ]) ? " selected=\"selected\"" : "";
     print("<option value=\"$arr2[id]\"". $selected .">$arr2[question]</option>");
    }
@@ -102,7 +102,7 @@ elseif ($_GET[action] == "additem" && $_GET[inid]) {
  print("<tr><td class='table_col1'>Status:</td><td class='table_col1'><select name=\"flag\" style=\"width: 110px;\"><option value=\"0\" style=\"color: #ff0000;\">Hidden</option><option value=\"1\" style=\"color: #000000;\">Normal</option><option value=\"2\" style=\"color: #0000FF;\">Updated</option><option value=\"3\" style=\"color: #008000;\" selected=\"selected\">New</option></select></td></tr>");
  print("<tr><td class='table_col2'>Category:</td><td class='table_col2'><select style=\"width: 300px;\" name=\"categ\">");
  $res = SQL_Query_exec("SELECT `id`, `question` FROM `faq` WHERE `type`='categ' ORDER BY `order` ASC");
- while ($arr = mysqli_fetch_array($res, MYSQL_BOTH)) {
+ while ($arr = mysqli_fetch_array($res, MYSQLI_BOTH)) {
   $selected = ($arr[id] == $_GET[inid]) ? " selected=\"selected\"" : "";
   print("<option value=\"$arr[id]\"". $selected .">$arr[question]</option>");
  }
@@ -133,7 +133,7 @@ elseif ($_GET[action] == "addnewitem" && $_POST[question] != NULL && $_POST[answ
  $question = sqlesc($_POST[question]);
  $answer = sqlesc($_POST[answer]);
  $res = SQL_Query_exec("SELECT MAX(`order`) FROM `faq` WHERE `type`='item' AND `categ`='$_POST[categ]'");
- while ($arr = mysqli_fetch_array($res, MYSQL_BOTH)) $order = $arr[0] + 1;
+ while ($arr = mysqli_fetch_array($res, MYSQLI_BOTH)) $order = $arr[0] + 1;
  SQL_Query_exec("INSERT INTO `faq` (`type`, `question`, `answer`, `flag`, `categ`, `order`) VALUES ('item', $question, $answer, '$_POST[flag]', '$_POST[categ]', '$order')");
  header("Refresh: 0; url=faq-manage.php"); 
 }
@@ -142,7 +142,7 @@ elseif ($_GET[action] == "addnewitem" && $_POST[question] != NULL && $_POST[answ
 elseif ($_GET[action] == "addnewsect" && $_POST[title] != NULL && is_valid_int($_POST[flag])) {
  $title = sqlesc($_POST[title]);
  $res = SQL_Query_exec("SELECT MAX(`order`) FROM `faq` WHERE `type`='categ'");
- while ($arr = mysqli_fetch_array($res, MYSQL_BOTH)) $order = $arr[0] + 1;
+ while ($arr = mysqli_fetch_array($res, MYSQLI_BOTH)) $order = $arr[0] + 1;
  SQL_Query_exec("INSERT INTO `faq` (`type`, `question`, `answer`, `flag`, `categ`, `order`) VALUES ('categ', $title, '', '$_POST[flag]', '0', '$order')");
  header("Refresh: 0; url=faq-manage.php");
 }
