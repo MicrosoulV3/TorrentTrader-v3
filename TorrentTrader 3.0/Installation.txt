@@ -1,5 +1,5 @@
 
-TORRENTTRADER V3.0 INSTALL NOTES (LAST MODIFIED 2nd March 2019)
+TORRENTTRADER V3.0 INSTALL NOTES (LAST MODIFIED 28th August 2020)
 ===================================================================
 
 REQUIREMENTS:
