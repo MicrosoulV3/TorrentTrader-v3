@@ -216,7 +216,7 @@ if ($_POST["takeupload"] == "yes") {
     
     rename("$torrent_dir/$fname", "$torrent_dir/$id.torrent"); 
 
-	if (is_array($filelist) && count($filelist)) {
+	if (is_countable($filelist) && count($filelist)) {
 		foreach ($filelist as $file) {
 			$dir = '';
 			$size = $file["length"];
