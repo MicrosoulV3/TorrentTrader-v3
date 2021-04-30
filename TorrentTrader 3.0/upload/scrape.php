@@ -41,9 +41,6 @@ foreach (explode("&", $_SERVER["QUERY_STRING"]) as $item) {
     if (preg_match("#^info_hash=(.+)\$#", $item, $m)) {
         $hash = urldecode($m[1]);
 
-        if (get_magic_quotes_gpc())
-            $info_hash = stripslashes($hash);
-        else
             $info_hash = $hash;
         if (strlen($info_hash) == 20)
             $info_hash = bin2hex($info_hash);
