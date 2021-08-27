@@ -303,17 +303,21 @@ if ($event == "stopped") { // UPDATE "STOPPED" EVENT
         SQL_Query_exec("DELETE FROM peers WHERE $selfwhere");
         if (mysqli_affected_rows($GLOBALS["DBconnector"])){
             if ($self["seeder"] == "yes")
-                $updateset[] = "seeders = seeders - 1";
+                $updateset[] = "seeders = (CASE WHEN (seeders < 1) THEN 0 ELSE (seeders - 1) END)";
             else
-                $updateset[] = "leechers = leechers - 1";
+                 $updateset[] = "leechers = (CASE WHEN (leechers < 1) THEN 0 ELSE (leechers - 1) END)";
         }
 }
 
 if ($event == "completed") { // UPDATE "COMPLETED" EVENT    
     $updateset[] = "times_completed = times_completed + 1";
 
-	if ($MEMBERSONLY)
-		SQL_Query_exec("INSERT INTO completed (userid, torrentid, date) VALUES ($userid, $torrentid, '".get_date_time()."')");
+if ( $MEMBERSONLY )
+{
+SQL_Query_exec("INSERT INTO completed (userid, torrentid, date) VALUES ($userid, $torrentid, '".get_date_time()."')");
+	//uncomment below if using snatched table
+//SQL_Query_exec("UPDATE LOW_PRIORITY `snatched` SET `completed` = '1' WHERE `tid` = '$torrentid' AND `uid` = '$userid' AND `utime` = '" . gmtime() . "'");
+}
 }//END COMPLETED
 
 if (isset($self)){// NO EVENT? THEN WE MUST BE A NEW PEER OR ARE NOW SEEDING A COMPLETED TORRENT
@@ -322,11 +326,11 @@ if (isset($self)){// NO EVENT? THEN WE MUST BE A NEW PEER OR ARE NOW SEEDING A C
 
     if (mysqli_affected_rows($GLOBALS["DBconnector"]) && $self["seeder"] != $seeder){
         if ($seeder == "yes"){
-            $updateset[] = "seeders = seeders + 1";
-            $updateset[] = "leechers = leechers - 1";
+            $updateset[] = "seeders = (CASE WHEN (seeders < 1) THEN 0 ELSE (seeders - 1) END)";
+             $updateset[] = "leechers = (CASE WHEN (leechers < 1) THEN 0 ELSE (leechers - 1) END)";
         } else {
-            $updateset[] = "seeders = seeders - 1";
-            $updateset[] = "leechers = leechers + 1";
+            $updateset[] = "seeders = (CASE WHEN (seeders < 1) THEN 0 ELSE (seeders - 1) END)";
+            $updateset[] = "leechers = (CASE WHEN (leechers < 1) THEN 0 ELSE (leechers - 1) END)";
         }
     }
 
