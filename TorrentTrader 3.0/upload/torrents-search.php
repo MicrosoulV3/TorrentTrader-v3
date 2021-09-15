@@ -190,7 +190,7 @@ if (!$count && isset($cleansearchstr)) {
 //Sort by
 if ($addparam != "") { 
 	if ($pagerlink != "") {
-		if ($addparam{strlen($addparam)-1} != ";") { // & = &amp;
+		if ($addparam[strlen($addparam)-1] != ";") { // & = &amp;
 			$addparam = $addparam . "&amp;" . $pagerlink;
 		} else {
 			$addparam = $addparam . $pagerlink;
