@@ -23,7 +23,7 @@ INDEX ( `torrent` )
 DROP TABLE IF EXISTS `bans`;
 CREATE TABLE `bans` (
   `id` int(10) unsigned NOT NULL auto_increment,
-  `added` datetime NOT NULL default '0000-00-00 00:00:00',
+  `added` datetime DEFAULT NULL,
   `addedby` int(10) unsigned NOT NULL default '0',
   `comment` varchar(255) NOT NULL default '',
   `first` varchar(39) default NULL,
@@ -128,7 +128,7 @@ CREATE TABLE `comments` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `user` int(10) unsigned NOT NULL default '0',
   `torrent` int(10) unsigned NOT NULL default '0',
-  `added` datetime NOT NULL default '0000-00-00 00:00:00',
+  `added` datetime DEFAULT NULL,
   `text` text NOT NULL,
   `news` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`),
@@ -141,7 +141,7 @@ CREATE TABLE `completed` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `userid` int(10) NOT NULL default '0',
   `torrentid` int(10) NOT NULL default '0',
-  `date` datetime NOT NULL default '0000-00-00 00:00:00',
+  `date` datetime DEFAULT NULL,
   PRIMARY KEY  (`id`),
   UNIQUE `userid_torrentid` (`userid`, `torrentid`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 ;
@@ -258,7 +258,7 @@ DROP TABLE IF EXISTS `email_bans`;
 CREATE TABLE `email_bans` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `userid` int(11) default '0',
-  `added` datetime NOT NULL default '0000-00-00 00:00:00',
+  `added` datetime DEFAULT NULL,
   `addedby` int(10) unsigned NOT NULL default '0',
   `comment` varchar(255) NOT NULL default '',
   `mail_domain` varchar(255) default NULL,
@@ -414,7 +414,7 @@ DROP TABLE IF EXISTS `news`;
 CREATE TABLE `news` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `userid` int(11) NOT NULL default '0',
-  `added` datetime NOT NULL default '0000-00-00 00:00:00',
+  `added` datetime DEFAULT NULL,
   `title` varchar(255) NOT NULL default '',
   `body` text NOT NULL,
   PRIMARY KEY  (`id`),
@@ -435,8 +435,8 @@ CREATE TABLE `peers` (
   `downloaded` bigint(20) unsigned NOT NULL default '0',
   `to_go` bigint(20) unsigned NOT NULL default '0',
   `seeder` enum('yes','no') NOT NULL default 'no',
-  `started` datetime NOT NULL default '0000-00-00 00:00:00',
-  `last_action` datetime NOT NULL default '0000-00-00 00:00:00',
+  `started` datetime DEFAULT NULL,
+  `last_action` datetime DEFAULT NULL,
   `connectable` enum('yes','no') NOT NULL default 'yes',
   `client` varchar(60) NOT NULL default '',
   `userid` varchar(32) NOT NULL default '',
@@ -463,7 +463,7 @@ CREATE TABLE `pollanswers` (
 DROP TABLE IF EXISTS `polls`;
 CREATE TABLE `polls` (
   `id` int(10) unsigned NOT NULL auto_increment,
-  `added` datetime NOT NULL default '0000-00-00 00:00:00',
+  `added` datetime DEFAULT NULL,
   `question` varchar(255) NOT NULL default '',
   `option0` varchar(40) NOT NULL default '',
   `option1` varchar(40) NOT NULL default '',
@@ -490,14 +490,14 @@ CREATE TABLE `polls` (
 ) ENGINE=MyISAM AUTO_INCREMENT=1 ;
 
 INSERT INTO `polls` (`id`, `added`, `question`, `option0`, `option1`, `option2`, `option3`, `option4`, `option5`, `option6`, `option7`, `option8`, `option9`, `option10`, `option11`, `option12`, `option13`, `option14`, `option15`, `option16`, `option17`, `option18`, `option19`, `sort`) VALUES 
-(1, '0000-00-00 00:00:00', 'Do You Like This Site', 'Excellent!', 'Its OK', 'Its my first visit', 'Don''t Like It', 'Im Off', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'yes');
+(1, NULL, 'Do You Like This Site', 'Excellent!', 'Its OK', 'Its my first visit', 'Don''t Like It', 'Im Off', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'yes');
 
 DROP TABLE IF EXISTS `ratings`;
 CREATE TABLE `ratings` (
   `torrent` int(10) unsigned NOT NULL default '0',
   `user` int(10) unsigned NOT NULL default '0',
   `rating` tinyint(3) unsigned NOT NULL default '0',
-  `added` datetime NOT NULL default '0000-00-00 00:00:00',
+  `added` datetime DEFAULT NULL,
   PRIMARY KEY  (`torrent`,`user`),
   KEY `user` (`user`)
 ) ENGINE=MyISAM;
@@ -536,7 +536,7 @@ CREATE TABLE `shoutbox` (
   `msgid` int(10) unsigned NOT NULL auto_increment,
   `user` varchar(50) NOT NULL default '0',
   `message` text,
-  `date` datetime NOT NULL default '0000-00-00 00:00:00',
+  `date` datetime DEFAULT NULL,
   `userid` int(8) unsigned NOT NULL default '0',
   PRIMARY KEY  (`msgid`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 ;
@@ -565,7 +565,7 @@ INSERT INTO `tasks` (`task`, `last_time`) VALUES
 DROP TABLE IF EXISTS `teams`;
 CREATE TABLE `teams` (
   `id` int(10) NOT NULL auto_increment,
-  `added` datetime NOT NULL default '0000-00-00 00:00:00',
+  `added` datetime DEFAULT NULL,
   `owner` int(10) NOT NULL default '0',
   `info` text,
   `name` varchar(255) default NULL,
@@ -603,7 +603,7 @@ CREATE TABLE `torrents` (
   `image2` text NOT NULL,
   `category` int(10) unsigned NOT NULL default '0',
   `size` bigint(20) unsigned NOT NULL default '0',
-  `added` datetime NOT NULL default '0000-00-00 00:00:00',
+  `added` datetime DEFAULT NULL,
   `type` enum('single','multi') NOT NULL default 'single',
   `numfiles` int(10) unsigned NOT NULL default '0',
   `comments` int(10) unsigned NOT NULL default '0',
@@ -612,7 +612,7 @@ CREATE TABLE `torrents` (
   `times_completed` int(10) unsigned NOT NULL default '0',
   `leechers` int(10) unsigned NOT NULL default '0',
   `seeders` int(10) unsigned NOT NULL default '0',
-  `last_action` datetime NOT NULL default '0000-00-00 00:00:00',
+  `last_action` datetime DEFAULT NULL,
   `visible` enum('yes','no') NOT NULL default 'yes',
   `banned` enum('yes','no') NOT NULL default 'no',
   `owner` int(10) unsigned NOT NULL default '0',
@@ -640,9 +640,9 @@ CREATE TABLE `users` (
   `secret` varchar(20) binary NOT NULL default '' COLLATE latin1_bin,
   `email` varchar(80) NOT NULL default '',
   `status` enum('pending','confirmed') NOT NULL default 'pending',
-  `added` datetime NOT NULL default '0000-00-00 00:00:00',
-  `last_login` datetime NOT NULL default '0000-00-00 00:00:00',
-  `last_access` datetime NOT NULL default '0000-00-00 00:00:00',
+  `added` datetime DEFAULT NULL,
+  `last_login` datetime DEFAULT NULL,
+  `last_access` datetime DEFAULT NULL,
   `editsecret` varchar(20) binary NOT NULL default '' COLLATE latin1_bin,
   `privacy` enum('strong','normal','low') NOT NULL default 'normal',
   `stylesheet` int(10) default '1',
@@ -670,7 +670,7 @@ CREATE TABLE `users` (
   `invited_by` int(10) NOT NULL default '0',
   `invitees` varchar(100) NOT NULL default '',
   `invites` smallint(5) NOT NULL default '0',
-  `invitedate` datetime NOT NULL default '0000-00-00 00:00:00',
+  `invitedate` datetime DEFAULT NULL,
   `commentpm` enum('yes','no') NOT NULL default 'yes',
   `passkey` varchar(32) NOT NULL default '',
   `page` text,
@@ -691,8 +691,8 @@ CREATE TABLE `warnings` (
   `id` int(10) NOT NULL auto_increment,
   `userid` int(10) NOT NULL default '0',
   `reason` varchar(255) NOT NULL default '',
-  `added` datetime NOT NULL default '0000-00-00 00:00:00',
-  `expiry` datetime NOT NULL default '0000-00-00 00:00:00',
+  `added` datetime DEFAULT NULL,
+  `expiry` datetime DEFAULT NULL,
   `warnedby` int(10) NOT NULL default '0',
   `type` varchar(10) NOT NULL default '',
   `active` ENUM('yes', 'no') DEFAULT 'yes',
@@ -728,7 +728,7 @@ CREATE TABLE `forum_posts` (
 `added` datetime default NULL,
 `body` longtext,
 `editedby` int(10) unsigned NOT NULL default '0',
-`editedat` datetime NOT NULL default '0000-00-00 00:00:00',
+`editedat` datetime DEFAULT NULL,
 PRIMARY KEY (`id`),
 KEY `topicid` (`topicid`),
 KEY `userid` (`userid`),
@@ -775,6 +775,6 @@ DROP TABLE IF EXISTS `sqlerr`;
 CREATE TABLE `sqlerr` (
 `id`   int(10) unsigned NOT NULL auto_increment,
 `txt`  text NOT NULL DEFAULT '',
-`time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+`time` datetime DEFAULT NULL,
 PRIMARY KEY (`id`)
 ) ENGINE = MyISAM AUTO_INCREMENT = 1;
