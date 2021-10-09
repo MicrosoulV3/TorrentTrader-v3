@@ -2248,7 +2248,7 @@ if ($action=="rules" && $do=="addsect"){
 }
 
 #======================================================================#
-# Configuration Panel by djhowarth 
+# Configuration Panel by djhowarth //thisEach left alone here as this is a defunct action and this does not work and is unsafe. Left for reference
 #======================================================================#
  if ($action == "settings")
  {          
