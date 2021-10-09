@@ -32,7 +32,8 @@ if ($CURUSER){
 	ksort($lang_sa);
 	reset($lang_sa);
 
-	while (list($lang_name, $lang_id) = thisEach($lang_sa)){
+	//while (list($lang_name, $lang_id) = thisEach($lang_sa)){
+	foreach ($lang_sa as $lang_name => $lang_id) {
 		if ($lang_id == $CURUSER["language"]) $lang = " selected='selected'"; else $lang = "";
 		$languages .= "<option value='$lang_id'$lang>$lang_name</option>\n";
 	}
