@@ -80,7 +80,7 @@ if (!$action){
 	end_frame();
 }
 
-/////////////// MY TORRENTS ///////////////////
+/////////////// MY TORRENTS ////////////////////
 
 if ($action=="mytorrents"){
 begin_frame(T_("YOUR_TORRENTS"));
