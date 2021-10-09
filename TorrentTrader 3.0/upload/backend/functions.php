@@ -15,12 +15,13 @@ if (function_exists("date_default_timezone_set"))
 	date_default_timezone_set("Europe/London"); // Do NOT change this. All times are converted to user's chosen timezone.
 
 /// each() replacement for php 7+. Change all instances of each() to thisEach() in all TT files. each() deprecated as of 7.2
-function thisEach(&$arr) {
-    $key = key($arr);
-    $result = ($key === null) ? false : [$key, current($arr), 'key' => $key, 'value' => current($arr)];
-    next($arr);
-    return $result;
-}
+//Removed function since all files have been rewritten. I left this here for reference
+//function thisEach(&$arr) {
+//    $key = key($arr);
+//    $result = ($key === null) ? false : [$key, current($arr), 'key' => $key, 'value' => current($arr)];
+//    next($arr);
+//    return $result;
+//}
 ///end each() replacement
 
 ///mysql_result replacement for php 7+. Change all mysql_result to mysqli_result in all TT files. mysql_result deprercated/removed, so emulate it. Should switch to data_seek 
