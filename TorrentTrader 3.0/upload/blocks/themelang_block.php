@@ -15,7 +15,7 @@ if ($CURUSER){
 	reset($ss_sa);
     
 	//while (list($ss_name, $ss_id) = thisEach($ss_sa)){
-	foreach ($lang_sa as $lang_name => $lang_id) {
+	foreach ($ss_sa as $ss_name => $ss_id) {
 		if ($ss_id == $CURUSER["stylesheet"]) $ss = " selected='selected'"; else $ss = "";
 		$stylesheets .= "<option value='$ss_id'$ss>$ss_name</option>\n";
 	}
