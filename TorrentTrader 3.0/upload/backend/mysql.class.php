@@ -47,7 +47,9 @@ class SQL_Query {
 			reset($this->params);
 			for ($i = 0; $i < strlen($this->query); $i++) {
 				if ($this->query[$i] == "?") {
-					list(, $val) = thisEach($this->params);
+				//	list(, $val) = thisEach($this->params);
+					$val = current($this->params); //new var to replace thisEach
+					next($this->params); //new var to replace thisEach
 					$ret .= $val;
 				} else {
 					$ret .= $this->query[$i];
