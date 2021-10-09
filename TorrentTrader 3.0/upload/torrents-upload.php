@@ -290,7 +290,8 @@ begin_frame(T_("UPLOAD"));
 <?php
 print ("<tr><td align='right' valign='top'>" . T_("ANNOUNCE_URL") . ": </td><td align='left'>");
 
-while (list($key,$value) = thisEach($announce_urls)) {
+//while (list($key,$value) = thisEach($announce_urls)) {
+foreach($announce_urls as $key => $value) {
 	echo "<b>$value</b><br />";
 }
 
