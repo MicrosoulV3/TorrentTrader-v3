@@ -74,7 +74,7 @@ function ParseTorrent($filename) {
 					$TorrentInfo[8] = $infovariable["files"];
 
 					foreach ($infovariable["files"] as $file) {
-						if(is_numeric($filecount))
+						$filecount = (int) $filecount;
 						$filecount += "1";
 						$multiname = $file['path'];//Not needed here really
 						$multitorrentsize = $file['length'];
