@@ -1,7 +1,10 @@
 <?php
 
 
-error_reporting(E_ALL ^ E_NOTICE);
+//error_reporting(E_ALL ^ E_NOTICE);
+ini_set('display_errors', 0);
+ini_set('display_startup_errors', 0);
+error_reporting(0);
 
 // Prefer unescaped. Data will be escaped as needed.
 if (ini_get("magic_quotes_gpc")) {
@@ -803,7 +806,7 @@ function format_comment($text) {
 	// Smilies
 	require_once("smilies.php");
 	reset($smilies);
-	while (list($code, $url) = thisEach($smilies))
+	foreach($smilies as $code => $url)
         $s = str_replace($code, '<img border="0" src="'.$site_config["SITEURL"].'/images/smilies/'.$url.'" alt="'.$code.'" title="'.$code.'" />', $s);
 
 	if($site_config["OLD_CENSOR"])
