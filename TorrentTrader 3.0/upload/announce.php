@@ -29,8 +29,7 @@ function array_map_recursive ($callback, $array) {
 
 
 function unesc($x) {
-	if (get_magic_quotes_gpc())
-		return stripslashes($x);
+stripslashes($x);
 	return $x;
 }
 
