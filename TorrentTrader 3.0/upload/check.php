@@ -52,6 +52,8 @@ td { vertical-align: top; }
 <a href="check.php?phpinfo=1">PHPInfo</a><br /><br />
 <a href='index.php'>Return to your homepage</a></center><br />
 <b>Required Settings Check:</b><br />
+<p>Disable MYSQL STRICT MODE or you will probably experience errors. Here is a reference for you <a href='https://www.linode.com/community/questions/17070/how-can-i-disable-mysql-strict-mode' target= "_blank">Click here to follow link</a></p>
+	<br />
 <p>If any of these items are highlighted in red then please take actions to correct them. <br />
 Failure to do so could lead to your installation not functioning correctly.</p>
 <br />
