@@ -123,7 +123,7 @@ if ($action=="doedit"){
     $updateset[] = "visible = '" . ($_POST["visible"] ? "yes" : "no") . "'";
 
     if ($CURUSER["edit_torrents"] == "yes")
-        $updateset[] = "freeleech = '".$_POST["freeleech"]."'";
+        $updateset[] = "freeleech = '".intval($_POST["freeleech"])."'";
 
     $updateset[] = "anon = '" . ($_POST["anon"] ? "yes" : "no") . "'";
 
