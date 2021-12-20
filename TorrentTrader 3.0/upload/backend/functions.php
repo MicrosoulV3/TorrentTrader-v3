@@ -78,8 +78,12 @@ function dbconn($autoclean = false) {
 
 	function_exists("mysqli_connect") or die("MySQLi support not available.");
 
-	$GLOBALS["DBconnector"] = mysqli_connect($mysql_host, $mysql_user, $mysql_pass) or die('DATABASE: mysqli_connect: ' . mysqli_error($GLOBALS["DBconnector"]));
-	mysqli_select_db($GLOBALS["DBconnector"],$mysql_db) or die('DATABASE: mysqli_select_db: ' . mysqli_error($GLOBALS["DBconnector"]));
+///	$GLOBALS["DBconnector"] = mysqli_connect($mysql_host, $mysql_user, $mysql_pass) or die('DATABASE: mysqli_connect: ' . mysqli_error($GLOBALS["DBconnector"]));
+///	mysqli_select_db($GLOBALS["DBconnector"],$mysql_db) or die('DATABASE: mysqli_select_db: ' . mysqli_error($GLOBALS["DBconnector"]));
+	$GLOBALS["DBconnector"] = new mysqli($mysql_host, $mysql_user, $mysql_pass, $mysql_db);    // Check connection
+        if ($GLOBALS["DBconnector"]->connect_error) { 
+       		die("Connection failed: " . $GLOBALS["DBconnector"]->connect_error);
+	}
 
 	unset($mysql_pass); //security
 
