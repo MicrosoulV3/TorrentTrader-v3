@@ -997,10 +997,16 @@ function torrenttable($res) {
 				print("<td class='ttable_col$x' align='center'><font color='orange'><b>".number_format($row["times_completed"])."</b></font></td>");
 			break;
 			case 'seeders':
-				print("<td class='ttable_col$x' align='center'><font color='green'><b>".number_format($row["seeders"])."</b></font></td>\n");
+				if ($row["seeders"] == "0")
+				print("<td class='ttable_col$x' align='center'><font size ='2' color='red'><b>".number_format($row["seeders"])."</b></font></td>\n");
+				else
+				print("<td class='ttable_col$x' align='center'><font size ='2' color='green'><b>".number_format($row["seeders"])."</b></font></td>\n");
 			break;
 			case 'leechers':
-				print("<td class='ttable_col$x' align='center'><font color='#ff0000'><b>" . number_format($row["leechers"]) . "</b></font></td>\n");
+				if ($row["leechers"] > "0")
+				print("<td class='ttable_col$x' align='center'><font size ='2' color='blue'><b>" . number_format($row["leechers"]) . "</b></font></td>\n");
+				else
+				print("<td class='ttable_col$x' align='center'><font size ='2' color='red'><b>" . number_format($row["leechers"]) . "</b></font></td>\n");
 			break;
 			case 'health':
 				print("<td class='ttable_col$x' align='center'><img src='".$site_config["SITEURL"]."/images/health/health_".health($row["leechers"], $row["seeders"]).".gif' alt='' /></td>\n");
