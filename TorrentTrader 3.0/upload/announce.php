@@ -42,7 +42,6 @@ function sqlesc($x) {
 }
 
 function err($msg) {
-   mysqli_close($GLOBALS["DBconnector"]);
    return benc_resp_raw("d".benc_str("failure reason").benc_str($msg)."e");
 }
 
