@@ -1,6 +1,7 @@
 <?php
 require_once("backend/functions.php");
 dbconn();
+session_start();
 
 if (!empty($_REQUEST["returnto"])) {
 	if (!$_GET["nowarn"]) {    
