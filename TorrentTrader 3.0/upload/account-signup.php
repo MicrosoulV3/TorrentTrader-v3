@@ -1,6 +1,7 @@
 <?php
 require_once("backend/functions.php");
 dbconn();
+session_start();
 
 $username_length = 15; // Max username length. You shouldn't set this higher without editing the database first
 $password_minlength = 6;
