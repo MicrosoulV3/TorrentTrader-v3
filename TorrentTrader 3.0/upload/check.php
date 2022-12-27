@@ -1,10 +1,12 @@
 <?php
 error_reporting(E_ALL ^ E_NOTICE);
 
+if (isset($_GET["phpinfo"])) {
 if ($_GET["phpinfo"] == 1){
 	echo "<br /><center><a href='check.php'>Back To Check</a></center><br /><br />";
 	phpinfo();
 	die();
+}
 }
 
 function get_php_setting($val) {
@@ -54,6 +56,20 @@ td { vertical-align: top; }
 <b>Required Settings Check:</b><br />
 <p>Disable MYSQL STRICT MODE or you will probably experience errors. Here is a reference for you <a href='https://www.linode.com/community/questions/17070/how-can-i-disable-mysql-strict-mode' target= "_blank">Click here to follow link</a></p>
 	<br />
+	
+	<?php
+require_once("backend/mysql.php");
+	$link = mysqli_connect($mysql_host, $mysql_user, $mysql_pass);
+			$stmt = mysqli_query($link, "SHOW VARIABLES LIKE 'sql_mode'")->fetch_row();
+			   if (!$stmt) {
+				   echo "<font color='#ff0000'><b>Error Getting SQL Mode:</b></font><br><br>";
+			   } else {
+			echo "<font color='red'><b>Current SQL Mode:</b></font><br>";
+				   echo ($stmt[1])."<br><br>";
+			}
+			?>
+			<br />
+	
 <p>If any of these items are highlighted in red then please take actions to correct them. <br />
 Failure to do so could lead to your installation not functioning correctly.</p>
 <br />
