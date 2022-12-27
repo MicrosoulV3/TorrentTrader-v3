@@ -1250,34 +1250,54 @@ function commenttable($res, $type = null) {
 	}
 }
 
-function where ($scriptname = "index", $userid, $update=1){
-	if (!is_valid_id($userid))
-		die;
-	if (preg_match("/torrents-details/i", $scriptname))
-		$where = "Browsing Torrents Details (ID: $_GET[id])...";
-	elseif (preg_match("/torrents.php/i", $scriptname))
-		$where = "Browsing Torrents...";
-	elseif (preg_match("/account-details/i", $scriptname))
-		$where = "Browsing Account Details (ID: $_GET[id])...";
-	elseif (preg_match("/torrents-upload/i", $scriptname))
-		$where = "Uploading Torrent..";
-	elseif (preg_match("/account/i", $scriptname))
-		$where = "Browsing User Control Panel...";
-	elseif (preg_match("/torrents-search/i", $scriptname))
-		$where = "Searching Torrents...";
-	elseif (preg_match("/forums/i", $scriptname))
-		$where = "Browsing Forums...";
-	elseif (preg_match("/index/i", $scriptname))
-		$where = "Browsing Homepage...";
-	else
-		$where = "Unknown Location...";
+// WHO IS WHERE FUNCTION
+function where ($where, $userid, $update=1){
+        if (!is_valid_id($userid))
+                die;
 
-	if ($update) {
-		$query = sprintf("UPDATE users SET page=".sqlesc($where)." WHERE id ='%s'", mysqli_real_escape_string($GLOBALS["DBconnector"],$userid));
-		$result = SQL_Query_exec($query);
-	}
-		return $where;
+        if(empty($where))
+                $where = "Unknown Location...";
+
+        if ($update) 
+                SQL_Query_exec("UPDATE users SET last_access='" . get_date_time() . "', page=".sqlesc($where)." WHERE id=" . $userid);
+        
+        if (!$update){
+                return $where;
+                }else{
+                return;
+                }
 }
+//END THE DAMN FUNCTION
+
+// old WHO IS WHERE function below
+// function where ($scriptname = "index", $userid, $update=1){
+//	if (!is_valid_id($userid))
+//		die;
+//	if (preg_match("/torrents-details/i", $scriptname))
+//		$where = "Browsing Torrents Details (ID: $_GET[id])...";
+//	elseif (preg_match("/torrents.php/i", $scriptname))
+//		$where = "Browsing Torrents...";
+//	elseif (preg_match("/account-details/i", $scriptname))
+//		$where = "Browsing Account Details (ID: $_GET[id])...";
+//	elseif (preg_match("/torrents-upload/i", $scriptname))
+//		$where = "Uploading Torrent..";
+//	elseif (preg_match("/account/i", $scriptname))
+//		$where = "Browsing User Control Panel...";
+//	elseif (preg_match("/torrents-search/i", $scriptname))
+//		$where = "Searching Torrents...";
+//	elseif (preg_match("/forums/i", $scriptname))
+//		$where = "Browsing Forums...";
+//	elseif (preg_match("/index/i", $scriptname))
+//		$where = "Browsing Homepage...";
+//	else
+//		$where = "Unknown Location...";
+//
+//	if ($update) {
+//		$query = sprintf("UPDATE users SET page=".sqlesc($where)." WHERE id ='%s'", mysqli_real_escape_string($GLOBALS["DBconnector"],$userid));
+//		$result = SQL_Query_exec($query);
+//	}
+//		return $where;
+// }
 
 function get_user_class_name($i){
 	GLOBAL $CURUSER;
