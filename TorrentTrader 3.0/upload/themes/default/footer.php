@@ -27,7 +27,7 @@
         printf (T_("POWERED_BY_TT")." -|- ", $site_config["ttversion"]);
         $totaltime = array_sum(explode(" ", microtime())) - $GLOBALS['tstart'];
         printf(T_("PAGE_GENERATED_IN"), $totaltime);
-        print ("<br /><a href=\"https://www.torrenttrader.org\" target=\"_blank\">www.torrenttrader.org</a> -|- <a href='rss.php'><img src='".$site_config["SITEURL"]."/images/icon_rss.gif' border='0' width='13' height='13' alt='' /></a> -|- <a href='rss.php'>".T_("RSS_FEED")."</a> -|- <a href='rss.php?custom=1'>".T_("FEED_INFO")."</a><br />Theme By: <a href='http://nikkbu.info' target='_blank'>Nikkbu</a>");
+        print ("<br /><a href=\"https://www.torrenttrader.uk\" target=\"_blank\">www.torrenttrader.uk</a> -|- <a href='rss.php'><img src='".$site_config["SITEURL"]."/images/icon_rss.gif' border='0' width='13' height='13' alt='' /></a> -|- <a href='rss.php'>".T_("RSS_FEED")."</a> -|- <a href='rss.php?custom=1'>".T_("FEED_INFO")."</a><br />Theme By: <a href='http://nikkbu.info' target='_blank'>Nikkbu</a>");
         //
         // *************************************************************************************************************************************
         //			PLEASE DO NOT REMOVE THE POWERED BY LINE, SHOW SOME SUPPORT! WE WILL NOT SUPPORT ANYONE WHO HAS THIS LINE EDITED OR REMOVED!
