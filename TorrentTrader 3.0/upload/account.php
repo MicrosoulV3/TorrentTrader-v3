@@ -268,7 +268,8 @@ if ($action=="edit_settings"){
 
 	ksort($tzs);
 	reset($tzs);
-	while (list($key, $val) = thisEach($tzs)) {
+	// while (list($key, $val) = thisEach($tzs))
+	foreach($tzs as $key => $val) {
 	if ($CURUSER["tzoffset"] == $key)
 		$tz .= "<option value=\"$key\" selected='selected'>$val[0]</option>\n";
 	else
