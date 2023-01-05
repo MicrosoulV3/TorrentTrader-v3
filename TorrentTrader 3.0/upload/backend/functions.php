@@ -371,8 +371,13 @@ function sqlesc($x) {
 
 
 function unesc($x) {
-stripslashes($x);
-	return $x;
+    // Connect to the database
+    $db = $GLOBALS["DBconnector"];
+
+    // Escape the string
+    $x = mysqli_real_escape_string($db, $x);
+
+    return $x;
 }
 
 /**
