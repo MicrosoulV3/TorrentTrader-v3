@@ -29,13 +29,8 @@ function array_map_recursive ($callback, $array) {
 
 
 function unesc($x) {
-    // Connect to the database
-    $db = $GLOBALS["DBconnector"];
-
-    // Escape the string
-    $x = mysqli_real_escape_string($db, $x);
-
-    return $x;
+	mysqli_real_escape_string($GLOBALS["DBconnector"],$x);
+	return $x;
 }
 
 function is_valid_id($id) {
