@@ -133,6 +133,7 @@ This system check is designed for unix based servers, windows based servers may 
 <tr>
 	<td>backend/config.php (chmod 400)</td>
 	<td>
+		
 	<?php
 	$file = 'backend/config.php';
 	$handle = @fopen($file, 'a');
