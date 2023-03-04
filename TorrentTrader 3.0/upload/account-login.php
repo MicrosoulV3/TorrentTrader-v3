@@ -20,7 +20,7 @@ if (isset($_POST["username"]) && isset($_POST["password"])) {
         $res = $stmt->get_result();
         $row = $res->fetch_assoc();
 
-        if (!$row || ($_POST["password"], $row["password"])) {
+        if (!$row || ($_POST["password"] == $row["password"])) {
             $message = T_("LOGIN_INCORRECT");
         } elseif ($row["status"] == "pending") {
             $message = T_("ACCOUNT_PENDING");
