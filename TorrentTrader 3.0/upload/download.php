@@ -36,7 +36,7 @@ if (!is_readable($fn))
 	show_error_msg(T_("FILE_NOT_FOUND"), T_("FILE_UNREADABLE"), 1);
 
 $name = $row['filename'];
-$friendlyurl = str_replace("http://","",$site_config["SITEURL"]);
+$friendlyurl = preg_replace("/^https?:\/\//i", "", $site_config["SITEURL"]);
 $friendlyname = str_replace(".torrent","",$name);
 $friendlyext = ".torrent";
 $name = $friendlyname ."[". $friendlyurl ."]". $friendlyext;
