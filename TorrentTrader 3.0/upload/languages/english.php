@@ -351,7 +351,7 @@ $LANG["FORUM_TOPIC_NOT_FOUND"] = "Topic not found.";
 $LANG["FORUM_REPLY_TOPIC"] = "Reply to topic";
 
 //  Frame Headings
-$LANG["ACCOUNT_SETTINGS_EDIT"] = "Edit Account Settings";
+$LANG["EDIT_ACCOUNT_SETTINGS"] = "Edit Account Settings";
 $LANG["ANONYMOUS_UPLOAD"] = "Anonymous Upload";
 $LANG["BROWSE_TORRENTS"] = "Browse Torrents";
 $LANG["CHANGE_THEME"] = "Change Theme";
