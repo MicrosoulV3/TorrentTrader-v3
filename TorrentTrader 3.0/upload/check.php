@@ -166,7 +166,7 @@ However, TorrentTrader! will still operate if your settings do not quite match t
 $php_recommended_settings = array(array ('Safe Mode','safe_mode','OFF'),
 array ('Display Errors (Can be off, but does make debugging difficult.)','display_errors','ON'),
 array ('File Uploads','file_uploads','ON'),
-array ('Magic Quotes Runtime','magic_quotes_runtime','OFF'),
+//array ('Magic Quotes Runtime','magic_quotes_runtime','OFF'),
 array ('Register Globals','register_globals','OFF'),
 array ('Output Buffering','output_buffering','OFF'),
 array ('Session auto start','session.auto_start','OFF'),
