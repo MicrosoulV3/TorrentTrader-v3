@@ -2,8 +2,8 @@
 //MYSQL CONNECTION INFO, DONT PASS IT OUT!
 
 //Access Security check
-if (preg_match('/mysql.php/i',$_SERVER['PHP_SELF'])) {
-	die;
+if (basename($_SERVER['PHP_SELF']) === 'mysql.php') {
+    die;
 }
 
 //Change the settings below to match your MYSQL server connection settings
