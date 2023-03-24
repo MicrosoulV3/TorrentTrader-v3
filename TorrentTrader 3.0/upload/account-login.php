@@ -15,8 +15,6 @@ if (isset($_POST["username"]) && isset($_POST["password"])) {
         $username = filter_var($_POST["username"], FILTER_SANITIZE_STRING);
         $password = filter_var($_POST["password"], FILTER_SANITIZE_STRING);
         $password_hash = passhash($password);
-
-		// Prepare login query
 		$stmt = $GLOBALS["DBconnector"]->prepare("SELECT id, password, secret, status, enabled FROM users WHERE username = ? LIMIT 1");
 		$stmt->bind_param("s", $username);
 		$stmt->execute();
@@ -38,7 +36,7 @@ if (isset($_POST["username"]) && isset($_POST["password"])) {
     } else {
         $message = T_("NO_EMPTY_FIELDS");
     }
-    }
+    
 
     if (!$message) {
         logincookie($row["id"], $row["password"], $row["secret"]);
@@ -53,7 +51,7 @@ if (isset($_POST["username"]) && isset($_POST["password"])) {
         show_error_msg(T_("ACCESS_DENIED"), $message, 1);
     }
 }
-
+}
 logoutcookie();
 
 stdhead(T_("LOGIN"));
