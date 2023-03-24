@@ -11,24 +11,33 @@ if (!empty($_REQUEST["returnto"])) {
 }
 
 if (isset($_POST["username"]) && isset($_POST["password"])) {
-    $password = passhash($_POST["password"]);
-
     if (!empty($_POST["username"]) && !empty($_POST["password"])) {
-        $stmt = $GLOBALS["DBconnector"]->prepare("SELECT id, password, secret, status, enabled FROM users WHERE username = ?");
-        $stmt->bind_param("s", $_POST["username"]);
-        $stmt->execute();
-        $res = $stmt->get_result();
-        $row = $res->fetch_assoc();
+        $username = filter_var($_POST["username"], FILTER_SANITIZE_STRING);
+        $password = filter_var($_POST["password"], FILTER_SANITIZE_STRING);
+        $password_hash = passhash($password);
 
-        if (!$row || ($_POST["password"] == $row["password"])) {
-            $message = T_("LOGIN_INCORRECT");
-        } elseif ($row["status"] == "pending") {
-            $message = T_("ACCOUNT_PENDING");
-        } elseif ($row["enabled"] == "no") {
-            $message = T_("ACCOUNT_DISABLED");
+		// Prepare login query
+		$stmt = $GLOBALS["DBconnector"]->prepare("SELECT id, password, secret, status, enabled FROM users WHERE username = ? LIMIT 1");
+		$stmt->bind_param("s", $username);
+		$stmt->execute();
+
+		if ($stmt->error) {
+			die("Query failed: " . $stmt->error);
+		}
+		$res = $stmt->get_result();
+		$row = $res->fetch_assoc();
+
+		if ($row) {
+			if ($row["password"] !== $password_hash) {
+				$message = T_("LOGIN_INCORRECT");
+			} elseif ($row["status"] === "pending") {
+				$message = T_("ACCOUNT_PENDING");
+			} elseif ($row["enabled"] === "no") {
+				$message = T_("ACCOUNT_DISABLED");
         }
     } else {
         $message = T_("NO_EMPTY_FIELDS");
+    }
     }
 
     if (!$message) {
