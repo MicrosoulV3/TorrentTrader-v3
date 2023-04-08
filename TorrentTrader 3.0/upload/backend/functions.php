@@ -371,7 +371,7 @@ function sqlesc($x) {
 
 
 function unesc($x) {
-	mysqli_real_escape_string($GLOBALS["DBconnector"],$x);
+	$x = mysqli_real_escape_string($GLOBALS["DBconnector"], $x);
 	return $x;
 }
 
