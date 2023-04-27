@@ -6,8 +6,8 @@ require_once("backend/mysql.php");
 require_once("backend/config.php");
 require_once("backend/mysql.class.php");
 
-$GLOBALS["DBconnector"] = @mysqli_connect($mysql_host, $mysql_user, $mysql_pass) or err('dbconn: mysqli_connect: ' . mysqli_connect_error());
-@mysqli_select_db($GLOBALS["DBconnector"],$mysql_db) or err('dbconn: mysqli_select_db: ' . mysqli_error($GLOBALS["DBconnector"]));
+$GLOBALS["DBconnector"] = mysqli_connect($mysql_host, $mysql_user, $mysql_pass) or err('dbconn: mysqli_connect: ' . mysqli_connect_error());
+mysqli_select_db($GLOBALS["DBconnector"],$mysql_db) or err('dbconn: mysqli_select_db: ' . mysqli_error($GLOBALS["DBconnector"]));
 
 $MEMBERSONLY = $site_config["MEMBERSONLY"];
 $MEMBERSONLY_WAIT = $site_config["MEMBERSONLY_WAIT"];
