@@ -29,9 +29,7 @@ function array_map_recursive ($callback, $array) {
 
 
 function unesc($x) {
-	if (is_string($x)) {
-		$x = stripslashes($x);
-	}
+	mysqli_real_escape_string($GLOBALS["DBconnector"],$x);
 	return $x;
 }
 
