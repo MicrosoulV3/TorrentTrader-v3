@@ -27,7 +27,7 @@ if (function_exists("date_default_timezone_set"))
 //}
 ///end each() replacement
 
-///mysql_result replacement for php 7+. Change all mysql_result to mysqli_result in all TT files. mysql_result deprercated/removed, so emulate it. Should switch to data_seek 
+///mysql_result replacement for php 7+. Change all mysql_result to mysqli_result in all TT files. mysql_result deprercated/removed, so emulate it.
 function mysqli_result($res,$row=0,$col=0){
     $numrows = mysqli_num_rows($res);
     if ($numrows && $row <= ($numrows-1) && $row >=0){
