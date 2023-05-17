@@ -232,6 +232,7 @@ function logoutcookie() {
     setcookie("uid", "", time() - 3600, "/", "", true, true);
 }
 
+//Old logoutcookie() replaced by above code
 //function logoutcookie() {
 //	setcookie("pass", null, time(), "/");
 //	setcookie("uid", null, time(), "/");
