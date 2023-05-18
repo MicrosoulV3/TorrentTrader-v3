@@ -216,7 +216,7 @@ function logincookie($id, $password, $secret, $updatedb = 1, $expires = 0x7fffff
 		SQL_Query_exec("UPDATE users SET last_login = '".get_date_time()."' WHERE id = $id");
 }
 
-//NEW COOKIE LOGOUT
+//NEW COOKIE LOGOUT FUNCTION
 function logoutcookie() {
     // Clear session data on the server side of life
     session_start();
