@@ -576,7 +576,14 @@ function is_valid_int($id){
 }
 
 function sql_timestamp_to_unix_timestamp($s){
-	return mktime(substr($s, 11, 2), substr($s, 14, 2), substr($s, 17, 2), substr($s, 5, 2), substr($s, 8, 2), substr($s, 0, 4));
+    return mktime(
+        intval(substr($s, 11, 2)),
+        intval(substr($s, 14, 2)),
+        intval(substr($s, 17, 2)),
+        intval(substr($s, 5, 2)),
+        intval(substr($s, 8, 2)),
+        intval(substr($s, 0, 4))
+    );
 }
 
 function write_log($text){
