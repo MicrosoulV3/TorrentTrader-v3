@@ -1592,7 +1592,8 @@ if ($action=="polls" && $do=="save"){
 	$option17 = $_POST["option17"];
 	$option18 = $_POST["option18"];
 	$option19 = $_POST["option19"];
-	$sort = (int)$_POST["sort"];
+//	$sort = (int)$_POST["sort"];
+	$sort = $_POST["sort"]; //removed INT and commented above as some were having trouble
 
 	if (!$question || !$option0 || !$option1)
 		show_error_msg(T_("ERROR"), T_("MISSING_FORM_DATA")."!", 1);
