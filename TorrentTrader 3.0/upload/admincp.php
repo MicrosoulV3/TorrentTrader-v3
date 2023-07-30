@@ -1590,7 +1590,7 @@ if ($action == "polls" && $do == "save") {
     $option17 = filter_input(INPUT_POST, 'option17', FILTER_SANITIZE_STRING);
     $option18 = filter_input(INPUT_POST, 'option18', FILTER_SANITIZE_STRING);
     $option19 = filter_input(INPUT_POST, 'option19', FILTER_SANITIZE_STRING);
-    $sort = filter_input(INPUT_POST, 'sort', FILTER_SANITIZE_NUMBER_INT);
+    $sort = $_POST["sort"];
 // if ($action=="polls" && $do=="save"){
 
 // 	$subact = $_POST["subact"];
