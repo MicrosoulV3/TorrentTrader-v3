@@ -1565,35 +1565,60 @@ if ($action=="polls" && $do=="add"){
 	end_frame();
 	stdfoot();
 }
+if ($action == "polls" && $do == "save") {
+    $subact = filter_input(INPUT_POST, 'subact', FILTER_SANITIZE_STRING);
+    $pollid = filter_input(INPUT_POST, 'pollid', FILTER_SANITIZE_NUMBER_INT);
 
-if ($action=="polls" && $do=="save"){
+    $question = filter_input(INPUT_POST, 'question', FILTER_SANITIZE_STRING);
+    $option0 = filter_input(INPUT_POST, 'option0', FILTER_SANITIZE_STRING);
+    $option1 = filter_input(INPUT_POST, 'option1', FILTER_SANITIZE_STRING);
+    $option2 = filter_input(INPUT_POST, 'option2', FILTER_SANITIZE_STRING);
+    $option3 = filter_input(INPUT_POST, 'option3', FILTER_SANITIZE_STRING);
+    $option4 = filter_input(INPUT_POST, 'option4', FILTER_SANITIZE_STRING);
+    $option5 = filter_input(INPUT_POST, 'option5', FILTER_SANITIZE_STRING);
+    $option6 = filter_input(INPUT_POST, 'option6', FILTER_SANITIZE_STRING);
+    $option7 = filter_input(INPUT_POST, 'option7', FILTER_SANITIZE_STRING);
+    $option8 = filter_input(INPUT_POST, 'option8', FILTER_SANITIZE_STRING);
+    $option9 = filter_input(INPUT_POST, 'option9', FILTER_SANITIZE_STRING);
+    $option10 = filter_input(INPUT_POST, 'option10', FILTER_SANITIZE_STRING);
+    $option11 = filter_input(INPUT_POST, 'option11', FILTER_SANITIZE_STRING);
+    $option12 = filter_input(INPUT_POST, 'option12', FILTER_SANITIZE_STRING);
+    $option13 = filter_input(INPUT_POST, 'option13', FILTER_SANITIZE_STRING);
+    $option14 = filter_input(INPUT_POST, 'option14', FILTER_SANITIZE_STRING);
+    $option15 = filter_input(INPUT_POST, 'option15', FILTER_SANITIZE_STRING);
+    $option16 = filter_input(INPUT_POST, 'option16', FILTER_SANITIZE_STRING);
+    $option17 = filter_input(INPUT_POST, 'option17', FILTER_SANITIZE_STRING);
+    $option18 = filter_input(INPUT_POST, 'option18', FILTER_SANITIZE_STRING);
+    $option19 = filter_input(INPUT_POST, 'option19', FILTER_SANITIZE_STRING);
+    $sort = filter_input(INPUT_POST, 'sort', FILTER_SANITIZE_NUMBER_INT);
+// if ($action=="polls" && $do=="save"){
 
-	$subact = $_POST["subact"];
-	$pollid = (int)$_POST["pollid"];
+// 	$subact = $_POST["subact"];
+// 	$pollid = (int)$_POST["pollid"];
 
-	$question = $_POST["question"];
-	$option0 = $_POST["option0"];
-	$option1 = $_POST["option1"];
-	$option2 = $_POST["option2"];
-	$option3 = $_POST["option3"];
-	$option4 = $_POST["option4"];
-	$option5 = $_POST["option5"];
-	$option6 = $_POST["option6"];
-	$option7 = $_POST["option7"];
-	$option8 = $_POST["option8"];
-	$option9 = $_POST["option9"];
-	$option10 = $_POST["option10"];
-	$option11 = $_POST["option11"];
-	$option12 = $_POST["option12"];
-	$option13 = $_POST["option13"];
-	$option14 = $_POST["option14"];
-	$option15 = $_POST["option15"];
-	$option16 = $_POST["option16"];
-	$option17 = $_POST["option17"];
-	$option18 = $_POST["option18"];
-	$option19 = $_POST["option19"];
-//	$sort = (int)$_POST["sort"];
-	$sort = $_POST["sort"]; //removed INT and commented above as some were having trouble
+// 	$question = $_POST["question"];
+// 	$option0 = $_POST["option0"];
+// 	$option1 = $_POST["option1"];
+// 	$option2 = $_POST["option2"];
+// 	$option3 = $_POST["option3"];
+// 	$option4 = $_POST["option4"];
+// 	$option5 = $_POST["option5"];
+// 	$option6 = $_POST["option6"];
+// 	$option7 = $_POST["option7"];
+// 	$option8 = $_POST["option8"];
+// 	$option9 = $_POST["option9"];
+// 	$option10 = $_POST["option10"];
+// 	$option11 = $_POST["option11"];
+// 	$option12 = $_POST["option12"];
+// 	$option13 = $_POST["option13"];
+// 	$option14 = $_POST["option14"];
+// 	$option15 = $_POST["option15"];
+// 	$option16 = $_POST["option16"];
+// 	$option17 = $_POST["option17"];
+// 	$option18 = $_POST["option18"];
+// 	$option19 = $_POST["option19"];
+// //	$sort = (int)$_POST["sort"];
+// 	$sort = $_POST["sort"]; //removed INT
 
 	if (!$question || !$option0 || !$option1)
 		show_error_msg(T_("ERROR"), T_("MISSING_FORM_DATA")."!", 1);
