@@ -1566,7 +1566,7 @@ if ($action=="polls" && $do=="add"){
 	stdfoot();
 }
 if ($action == "polls" && $do == "save") {
-    $subact = filter_input(INPUT_POST, 'subact', FILTER_SANITIZE_STRING);
+$subact = $_POST["subact"];
     $pollid = (int)$_POST["pollid"];
     $question = filter_input(INPUT_POST, 'question', FILTER_SANITIZE_STRING);
     $option0 = filter_input(INPUT_POST, 'option0', FILTER_SANITIZE_STRING);
