@@ -27,17 +27,10 @@ function array_map_recursive ($callback, $array) {
 	return $ret;
 }
 
-function unesc($x) {
-    if (function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc()) {
-        return stripslashes($x);
-    }
-    return $x;
-}
-
-// function unesc($x) {
-// 	mysqli_real_escape_string($GLOBALS["DBconnector"],$x);
-// 	return $x;
-// }
+ function unesc($x) {
+ 	mysqli_real_escape_string($GLOBALS["DBconnector"],$x);
+ 	return $x;
+ }
 
 function is_valid_id($id) {
 	return is_numeric($id) && ($id > 0) && (floor($id) == $id);
