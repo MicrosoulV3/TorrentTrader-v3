@@ -374,10 +374,9 @@ function sqlesc($x) {
    return $x;
 }
 
- function unesc($x) {
- 	$x = mysqli_real_escape_string($GLOBALS["DBconnector"], $x);
- 	return $x;
- }
+function unesc($x) {
+    return $x;
+}
 
 /**
  * Convert bytes to readable format
