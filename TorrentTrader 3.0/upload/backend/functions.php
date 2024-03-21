@@ -374,11 +374,17 @@ function sqlesc($x) {
    return $x;
 }
 
-
 function unesc($x) {
-	$x = mysqli_real_escape_string($GLOBALS["DBconnector"], $x);
-	return $x;
+    if (function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc()) {
+        return stripslashes($x);
+    }
+    return $x;
 }
+
+// function unesc($x) {
+// 	$x = mysqli_real_escape_string($GLOBALS["DBconnector"], $x);
+// 	return $x;
+// }
 
 /**
  * Convert bytes to readable format
