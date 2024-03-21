@@ -27,10 +27,9 @@ function array_map_recursive ($callback, $array) {
 	return $ret;
 }
 
- function unesc($x) {
- 	mysqli_real_escape_string($GLOBALS["DBconnector"],$x);
- 	return $x;
- }
+function unesc($x) {
+    return $x;
+}
 
 function is_valid_id($id) {
 	return is_numeric($id) && ($id > 0) && (floor($id) == $id);
