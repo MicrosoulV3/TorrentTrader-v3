@@ -74,8 +74,9 @@ if ($action == 'edituser'){
 			// Notify user
 			$prodemoted = ($class > $uc ? "promoted" : "demoted");
 			$msg = sqlesc("You have been $prodemoted to '" . get_user_class_name($class) . "' by " . $CURUSER["username"] . ".");
+			$subject = sqlesc("Promotion/Demotion Notification"); // Default subject
 			$added = sqlesc(get_date_time());
-			@SQL_Query_exec("INSERT INTO messages (sender, receiver, msg, added) VALUES(0, $userid, $msg, $added)");
+			SQL_Query_exec("INSERT INTO messages (sender, receiver, subject, msg, added) VALUES(0, $userid, $subject, $msg, $added)");
 		}
 	}
 	//continue updates
