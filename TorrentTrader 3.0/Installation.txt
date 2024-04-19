@@ -4,7 +4,7 @@ TORRENTTRADER V3.0 INSTALL NOTES (LAST MODIFIED 28th August 2020)
 
 REQUIREMENTS:
 =============
-- PHP 7+ (7.4 recommended)
+- PHP 7.4
 - MYSQL 5+ . Do not use mysql 8 or higher
 - We do not advise that register_globals is enabled
 - We do not advise installation in a windows enviroment, however it will work (you may need to adjust paths)
