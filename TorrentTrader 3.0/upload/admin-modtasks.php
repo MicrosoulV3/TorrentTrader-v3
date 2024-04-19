@@ -63,7 +63,7 @@ if ($action == 'edituser'){
 	$arr = mysqli_fetch_row($res);
 	$uc = $arr[0];
 
-	// skip if class is same as current
+	// skip if class is same as current. Fixed for mysql strict mode due to no subject being added
 	if ($uc != $class && $class > 0) {
 		if ($userid == $CURUSER["id"]) {
 			show_error_msg(T_("EDITING_FAILED"), T_("YOU_CANT_DEMOTE_YOURSELF"),1);
