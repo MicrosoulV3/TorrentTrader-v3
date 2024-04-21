@@ -116,10 +116,11 @@ function validusername($username) {
 	}
 
 	//make first member admin
-	if ($numsitemembers == '0')
+	if ($numsitemembers == '0') {
 		$signupclass = '7';
-	else
+	} else {
 		$signupclass = '1';
+	}
 
     SQL_Query_exec("INSERT INTO users (username, password, secret, email, status, added, last_access, age, country, gender, client, stylesheet, language, class, ip) VALUES (" .
 	  implode(",", array_map("sqlesc", array($wantusername, $wantpassword, $secret, $email, $status, get_date_time(), get_date_time(), $age, $country, $gender, $client, $site_config["default_theme"], $site_config["default_language"], $signupclass, getip()))).")");
