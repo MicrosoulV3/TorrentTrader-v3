@@ -177,12 +177,18 @@ $catdropdown .= "</select>\n";
 //UPDATE TORRENTLANG DROPDOWN
 $langdropdown = "<select name=\"language\"><option value='0'>Unknown</option>\n";
 $lang = langlist();
-foreach ($lang as $lang) {
-    $langdropdown .= "<option value=\"" . $lang["id"] . "\"";
-    if ($lang["id"] == $row["torrentlang"])
+foreach ($lang as $langItem) {
+    $langdropdown .= "<option value=\"" . $langItem["id"] . "\"";
+    if ($langItem["id"] == $row["torrentlang"])
         $langdropdown .= " selected=\"selected\"";
-    $langdropdown .= ">" . htmlspecialchars($lang["name"]) . "</option>\n";
+    $langdropdown .= ">" . htmlspecialchars($langItem["name"]) . "</option>\n";
 }
+// foreach ($lang as $lang) {
+//     $langdropdown .= "<option value=\"" . $lang["id"] . "\"";
+//     if ($lang["id"] == $row["torrentlang"])
+//         $langdropdown .= " selected=\"selected\"";
+//     $langdropdown .= ">" . htmlspecialchars($lang["name"]) . "</option>\n";
+// }
 $langdropdown .= "</select>\n";
 //END TORRENTLANG
 
