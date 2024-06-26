@@ -218,13 +218,13 @@ function logincookie($id, $password, $secret, $updatedb = 1, $expires = 0x7fffff
 
 //NEW COOKIE LOGOUT FUNCTION
 function logoutcookie() {
-    // Clear session data on the server side of life
+    // Clear session data on the server side
     session_start();
     session_unset();
     session_destroy();
     session_write_close();
 
-    // Clear session cookies
+    // Clear session cookies and other cookies
     $params = session_get_cookie_params();
     setcookie(session_name(), '', time() - 42000, $params['path'], $params['domain'], $params['secure'], $params['httponly']);
     setcookie("pass", "", time() - 3600, "/", "", true, true);
