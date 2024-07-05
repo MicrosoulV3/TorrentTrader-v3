@@ -3013,7 +3013,11 @@ if ($action == "confirmreg")
         <td class="table_col1" align="center"><?php echo $row["username"]; ?></td>
         <td class="table_col2" align="center"><?php echo $row["email"]; ?></td>
         <td class="table_col1" align="center"><?php echo utc_to_tz($row["added"]); ?></td>
-        <td class="table_col2" align="center"><?php echo $row["ip"]; ?></td>
+        <td class="table_col2" align="center">
+    <a href="https://ipinfo.io/<?php echo $row['ip']; ?>" target="_blank">
+        <?php echo $row['ip']; ?>
+    </a>
+</td>
         <td class="table_col1" align="center"><input type="checkbox" name="users[]" value="<?php echo $row["id"]; ?>" /></td>
     </tr>
     <?php endwhile; ?>
