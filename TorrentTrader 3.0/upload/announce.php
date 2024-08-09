@@ -329,6 +329,7 @@ if (isset($self)){// NO EVENT? THEN WE MUST BE A NEW PEER OR ARE NOW SEEDING A C
     //         $updateset[] = "leechers = (CASE WHEN (leechers < 1) THEN 0 ELSE (leechers - 1) END)";
     //     }
     // }
+		  //Above code was wrong. New code posted below this message AUG 9 2024
     if (mysqli_affected_rows($GLOBALS["DBconnector"]) && $self["seeder"] != $seeder) {
         $updateset[] = $seeder == "yes"
             ? "seeders = seeders + 1"
