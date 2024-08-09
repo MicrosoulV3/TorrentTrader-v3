@@ -291,7 +291,7 @@ if (!isset($self)){ //IF PEER IS NOT IN PEERS TABLE DO THE WAIT TIME CHECK
     }
 }//END WAIT AND STATS UPDATE
 
-$updateset = array();
+$updateset = [];
 
 ////////////////// NOW WE DO THE TRACKER EVENT UPDATES ///////////////////
 
