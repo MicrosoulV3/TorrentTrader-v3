@@ -320,16 +320,7 @@ if (isset($self)){// NO EVENT? THEN WE MUST BE A NEW PEER OR ARE NOW SEEDING A C
     
     SQL_Query_exec("UPDATE peers SET ip = " . sqlesc($ip) . ", passkey = " . sqlesc($passkey) . ", port = $port, uploaded = $uploaded, downloaded = $downloaded, to_go = $left, last_action = '".get_date_time()."', client = " . sqlesc($agent) . ", seeder = '$seeder' WHERE $selfwhere");
 
-    // if (mysqli_affected_rows($GLOBALS["DBconnector"]) && $self["seeder"] != $seeder){
-    //     if ($seeder == "yes"){
-    //         $updateset[] = "seeders = (CASE WHEN (seeders < 1) THEN 0 ELSE (seeders - 1) END)";
-    //          $updateset[] = "leechers = (CASE WHEN (leechers < 1) THEN 0 ELSE (leechers - 1) END)";
-    //     } else {
-    //         $updateset[] = "seeders = (CASE WHEN (seeders < 1) THEN 0 ELSE (seeders - 1) END)";
-    //         $updateset[] = "leechers = (CASE WHEN (leechers < 1) THEN 0 ELSE (leechers - 1) END)";
-    //     }
-    // }
-		  //Above code was wrong. New code posted below this message AUG 9 2024
+		  // New code posted below this message AUG 9 2024
     if (mysqli_affected_rows($GLOBALS["DBconnector"]) && $self["seeder"] != $seeder) {
         $updateset[] = $seeder == "yes"
             ? "seeders = seeders + 1"
@@ -348,7 +339,7 @@ if (isset($self)){// NO EVENT? THEN WE MUST BE A NEW PEER OR ARE NOW SEEDING A C
         $updateset[] = ($seeder === "yes") ? "seeders = seeders + 1" : "leechers = leechers + 1";
     }
 }
-
+//END NEW CODE
 //////////////////    END TRACKER EVENT UPDATES ///////////////////
 
 // SEEDED, LETS MAKE IT VISIBLE THEN
