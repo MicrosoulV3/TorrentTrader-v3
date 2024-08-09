@@ -343,11 +343,8 @@ if (isset($self)){// NO EVENT? THEN WE MUST BE A NEW PEER OR ARE NOW SEEDING A C
 
     $ret = SQL_Query_exec("INSERT INTO peers (connectable, torrent, peer_id, ip, passkey, port, uploaded, downloaded, to_go, started, last_action, seeder, userid, client) VALUES ('$connectable', $torrentid, " . sqlesc($peer_id) . ", " . sqlesc($ip) . ", " . sqlesc($passkey) . ", $port, $uploaded, $downloaded, $left, '".get_date_time()."', '".get_date_time()."', '$seeder', '$userid', " . sqlesc($agent) . ")");
     
-    if ($ret){
-        if ($seeder == "yes")
-            $updateset[] = "seeders = seeders + 1";
-        else
-            $updateset[] = "leechers = leechers + 1";
+    if ($ret) {
+        $updateset[] = ($seeder === "yes") ? "seeders = seeders + 1" : "leechers = leechers + 1";
     }
 }
 
