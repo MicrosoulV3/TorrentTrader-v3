@@ -35,7 +35,7 @@ FRESH INSTALL INSTRUCTIONS ONLY!!!!
 777 - uploads/images/
 777 - import/
 600 - censor.txt
-440 - backend/config
+440 - backend/config. chmod to 440 after making all needed edits
 
 6) Run check.php from your browser to check you have configured everything ok
    check.php is designed for UNIX systems, if you are using WINDOWS it may not report the paths correctly.
