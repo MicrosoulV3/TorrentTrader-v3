@@ -5,7 +5,7 @@ TORRENTTRADER V3.0 INSTALL NOTES (LAST MODIFIED 28th August 2020)
 REQUIREMENTS:
 =============
 - PHP 7.4
-- MYSQL 5+ . Do not use mysql 8 or higher
+- MYSQL 5+ . Tested and working on 10.3.39-MariaDB-0ubuntu0.20.04.2
 - We do not advise that register_globals is enabled
 - We do not advise installation in a windows enviroment, however it will work (you may need to adjust paths)
 - It is advised to turn off strict mode in MYSQL before importing the database
@@ -35,6 +35,7 @@ FRESH INSTALL INSTRUCTIONS ONLY!!!!
 777 - uploads/images/
 777 - import/
 600 - censor.txt
+440 - backend/config
 
 6) Run check.php from your browser to check you have configured everything ok
    check.php is designed for UNIX systems, if you are using WINDOWS it may not report the paths correctly.
