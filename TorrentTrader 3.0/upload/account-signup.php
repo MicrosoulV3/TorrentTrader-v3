@@ -30,13 +30,18 @@ if ($_GET["takesignup"] == "1") {
 
 $message == "";
 
-function validusername($username) {
-		$allowedchars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-		for ($i = 0; $i < strlen($username); ++$i)
-			if (strpos($allowedchars, $username[$i]) === false)
-			return false;
-		return true;
+// function validusername($username) {
+// 		$allowedchars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+// 		for ($i = 0; $i < strlen($username); ++$i)
+// 			if (strpos($allowedchars, $username[$i]) === false)
+// 			return false;
+// 		return true;
+// }
+	function validusername($username)
+{
+    return ctype_alnum($username);
 }
+
 
 	$wantusername = $_POST["wantusername"];
 	$email = $_POST["email"];
