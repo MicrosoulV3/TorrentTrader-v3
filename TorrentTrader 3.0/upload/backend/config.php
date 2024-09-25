@@ -1,5 +1,5 @@
 <?php
-$site_config = array();
+$site_config = [];
 $site_config['ttversion'] = '3.0';							//DONT CHANGE THIS!
 
 // Main Site Settings
@@ -142,4 +142,3 @@ $site_config["passhash_algorithm"] = "sha1"; // See http://php.net/hash_algos fo
 $site_config["passhash_salt"] = ""; // Shouldn't be blank. At least 20 characters of random text.
 
 die("You didn't edit your config correctly."); // You MUST remove this line
-?>
