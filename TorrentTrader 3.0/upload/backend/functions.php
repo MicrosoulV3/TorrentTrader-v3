@@ -31,18 +31,26 @@ function mysqli_result($res,$row=0,$col=0){
 }
 ///end mysql_result replacement
 
-define("BASEPATH", str_replace("backend", "", dirname(__FILE__)));
-$BASEPATH = BASEPATH;
-define("BACKEND", dirname(__FILE__));
-$BACKEND = BACKEND;
+// define("BASEPATH", str_replace("backend", "", dirname(__FILE__)));
+// $BASEPATH = BASEPATH;
+// define("BACKEND", dirname(__FILE__));
+// $BACKEND = BACKEND;
 
-require_once(BACKEND."/mysql.php"); //Get MYSQL Connection Info
-require_once(BACKEND."/config.php");  //Get Site Settings and Vars ($site_config)
-require(BACKEND."/tzs.php"); // Get Timezones
-require_once(BACKEND."/cache.php"); // Caching
-require_once(BACKEND."/mail.php"); // Mail functions
-require_once(BACKEND."/mysql.class.php");
-require_once(BACKEND."/languages.php");
+// require_once(BACKEND."/mysql.php"); //Get MYSQL Connection Info
+// require_once(BACKEND."/config.php");  //Get Site Settings and Vars ($site_config)
+// require(BACKEND."/tzs.php"); // Get Timezones
+// require_once(BACKEND."/cache.php"); // Caching
+// require_once(BACKEND."/mail.php"); // Mail functions
+// require_once(BACKEND."/mysql.class.php");
+// require_once(BACKEND."/languages.php");
+require_once "backend/mysql.php"; // Get MYSQL Connection Info
+require_once "backend/config.php";  // Get Site Settings and Vars ($site_config)
+require "backend/tzs.php"; // Get Timezones
+require_once "backend/cache.php"; // Caching
+require_once "backend/mail.php"; // Mail functions
+require_once "backend/mysql.class.php";
+require_once "backend/languages.php";
+
 
 $GLOBALS['tstart'] = array_sum(explode(" ", microtime()));
 
