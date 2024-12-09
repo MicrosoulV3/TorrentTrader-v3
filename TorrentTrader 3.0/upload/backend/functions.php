@@ -1,18 +1,8 @@
 <?php
-
-
-//error_reporting(E_ALL ^ E_NOTICE);
-ini_set('display_errors', 0);
-ini_set('display_startup_errors', 0);
-error_reporting(0);
-
-// Prefer unescaped. Data will be escaped as needed.
-if (ini_get("magic_quotes_gpc")) {
-	$_POST = array_map_recursive("unesc", $_POST);
-	$_GET = array_map_recursive("unesc", $_GET);
-	$_REQUEST = array_map_recursive("unesc", $_REQUEST);
-	$_COOKIE = array_map_recursive("unesc", $_COOKIE);
-}
+// Enable error reporting for development
+//ini_set('display_errors', 1);
+//ini_set('display_startup_errors', 1);
+//error_reporting(E_ALL);
 
 if (function_exists("date_default_timezone_set"))
 	date_default_timezone_set("Europe/London"); // Do NOT change this. All times are converted to user's chosen timezone.
