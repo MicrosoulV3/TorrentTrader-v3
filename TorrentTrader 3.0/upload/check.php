@@ -131,14 +131,11 @@ This system check is designed for unix based servers, windows based servers may 
 	<td><?php echo extension_loaded( 'suhosin' ) ? '<b><font color="green">Available</font></b><br /><br />Add to your php.ini (otherwise you may have issues):<br />suhosin.get.disallow_nul = Off<br />suhosin.request.disallow_nul = Off' : '<b><font color="red">Unavailable</font></b>'; ?></td>
 </tr>
 <tr>
-	<td>backend/config.php (<b class="unavailable">chmod 440, SERIOUSLY!</b>)</td>
+	<td>backend/config.php (<b class="unavailable">chmod 444, SERIOUSLY!</b>)</td>
 	<td>
-		
 	<?php
 	$file = 'backend/config.php';
-	$handle = @fopen($file, 'a');
-	if ($handle !== false) {
-  		fclose($handle);
+	if (is_writable($file)) {
 		echo '<b><font color="red">Writeable</font></b><br />Warning: leaving backend/config.php writeable is a security risk';
 	} else {
 		echo '<b><font color="green">Unwriteable</font></b>';
