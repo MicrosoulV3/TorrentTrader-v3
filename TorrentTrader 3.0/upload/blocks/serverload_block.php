@@ -1,137 +1,107 @@
 <?php
 //SERVER LOAD BLOCK
-begin_block(T_("SERVER_LOAD"));
+if (!$site_config["MEMBERSONLY"] || $CURUSER) {
+    begin_block(T_("SERVER_LOAD"));
+    ?>
+    <table border="0" width="100%" cellspacing="0" cellpadding="0">
+    <tr>
+    <td align="center">
+    <?php
+    if (strtoupper(substr(PHP_OS, 0, 3)) == "WIN") {
+        if (!class_exists("COM"))
+            echo "COM support not available.";
+    } else {
+        // Load information
+        $reguptime = exec("uptime");
+        if ($reguptime) {
+            if (preg_match("/up\s+(?:(\d+)\s+days?,\s+)?(?:(\d+):(\d+))?,/", $reguptime, $uptimeMatches)) {
+                $days = isset($uptimeMatches[1]) ? $uptimeMatches[1] : 0;
+                $hours = isset($uptimeMatches[2]) ? $uptimeMatches[2] : 0;
+                $minutes = isset($uptimeMatches[3]) ? $uptimeMatches[3] : 0;
 
-if (strtoupper(substr(PHP_OS, 0, 3)) == "WIN") {
-	if (!class_exists("COM"))
-		echo "COM support not available.";
-	else {
-		function mkprettytime2($s){
-			foreach (array("60:sec","60:min","24:hour","1:day") as $x) {
-				$y = explode(":", $x);
-				if ($y[0] > 1) {
-					$v = $s % $y[0];
-					$s = floor($s / $y[0]);
-				} else
-					$v = $s;
-				$t[$y[1]] = $v;
-			}
+                // Build a user-friendly uptime string
+                $up = [];
+                if ($days > 0) $up[] = "$days day" . ($days > 1 ? "s" : "");
+                if ($hours > 0) $up[] = "$hours hour" . ($hours > 1 ? "s" : "");
+                if ($minutes > 0) $up[] = "$minutes minute" . ($minutes > 1 ? "s" : "");
 
-			if ($t['week'] > 1 || $t['week'] == 0) $wk = " weeks";
-			else $wk = " week";
-			if ($t['day'] > 1 || $t['day'] == 0) $day = " days";
-			else $day = " day";
-			if ($t['hour'] > 1 || $t['hour'] == 0) $hr = " hrs";
-			else $hr = " hr";
-			if ($t['min'] > 1 || $t['min'] == 0) $min = " mins";
-			else $min = " min";
-			if ($t['sec'] > 1 || $t['sec'] == 0) $sec = " secs";
-			else $sec = " sec";
+                $up = implode(", ", $up);
+            } else {
+                $up = "--";
+            }
 
-			if ($t["month"])
-				return "{$t['month']}$mth {$t['week']}$wk {$t['day']}$day ".sprintf("%d$hr %02d$min %02d$sec", $t["hour"], $t["min"], $t["sec"], $f["month"]);
-			if ($t["week"])
-				return "{$t['week']}$wk {$t['day']}$day ".sprintf("%d$hr %02d$min %02d$sec", $t["hour"], $t["min"], $t["sec"], $f["month"]);
-			if ($t["day"])
-				return "{$t['day']}$day ".sprintf("%d$hr %02d$min %02d$sec", $t["hour"], $t["min"], $t["sec"]);
-			if ($t["hour"])
-				return sprintf("%d$hr %02d$min %02d$sec", $t["hour"], $t["min"], $t["sec"]);
-			if ($t["min"])
-				return sprintf("%d$min %02d$sec", $t["min"], $t["sec"]);
-			return $t["sec"].$sec;
-		}
+            // Extract load averages and user count
+            if (preg_match("/(\d+) (users?), .*: (.*), (.*), (.*)/", $reguptime, $loadMatches)) {
+                $users[0] = $loadMatches[1];
+                $users[1] = $loadMatches[2];
+                $loadnow = $loadMatches[3];
+                $load5 = $loadMatches[4];
+                $load15 = $loadMatches[5];
+            } else {
+                $users[0] = "NA";
+                $users[1] = "--";
+                $loadnow = "NA";
+                $load5 = "--";
+                $load15 = "--";
+            }
+        } else {
+            $up = "--";
+            $users[0] = "NA";
+            $users[1] = "--";
+            $loadnow = "NA";
+            $load5 = "--";
+            $load15 = "--";
+        }
 
-		if (version_compare(PHP_VERSION, '5.0.0', '<'))
-			require("backend/serverload4.php");
-		else
-			require("backend/serverload5.php");
-	}
-} else {
-	// Users and load information
-	$reguptime = exec("uptime");
-	if ($reguptime) {
-		if (preg_match("/up (.*), *(\d) (users?), .*: (.*), (.*), (.*)/", $reguptime, $uptime)) {
-			$up = preg_replace("!(\d\d):(\d\d)!", '\1h\2m', $uptime[1]);
-			$users[0] = $uptime[2];
-			$users[1] = $uptime[3];
-			$loadnow = $uptime[4];
-			$load5 = $uptime[5];
-			$load15 = $uptime[6];
-		}
-	} else {
-		$up = "--";
-		$users[0] = "NA";
-		$users[1] = "--";
-		$loadnow = "NA";
-		$load5 = "--";
-		$load15 = "--";
-	}
+        // Operating system
+        $operatingsystem = defined('PHP_OS_FAMILY') ? PHP_OS_FAMILY : php_uname('s') . " " . php_uname('r');
 
-	// Operating system
-	$temp = file_get_contents("/proc/version");
-	if ($temp) {
+        // RAM usage
+        $meminfo = file_get_contents("/proc/meminfo");
+        preg_match("/^MemTotal:\s*(?P<total>\d+) kB.*^MemFree:\s*(?P<free>\d+) kB.*^Buffers:\s*(?P<buffers>\d+) kB.*^Cached:\s*(?P<cached>\d+) kB/ms", $meminfo, $matches);
 
-		$osarray = explode(" ", $temp);
+        $memtotal = $matches['total'] * 1024;
+        $memfree = $matches['free'] * 1024;
+        $buffers = $matches['buffers'] * 1024;
+        $cached = $matches['cached'] * 1024;
 
-		$distros = array(
-			"Gentoo", "/etc/gentoo-release",
-			"Fedora Core", "/etc/fedora-release",
-			"Slackware", "/etc/slackware-version",
-			"Cobalt", "/etc/cobalt-release",
-			"Debian", "/etc/debian_version",
-			"Mandrake", "/etc/mandrake-release",
-			"Mandrake", "/etc/mandrakelinux-release",
-			"Yellow Dog", "/etc/yellowdog-release",
-			"Red Hat", "/etc/redhat-release",
-			"Arch Linux", "/etc/arch-release"
-		);
+        $memused = mksize($memtotal - $memfree - $buffers - $cached);
+        $memtotal = mksize($memtotal);
+        $phpload = round(memory_get_usage() / 1000000, 2);
 
-		$distro = "";
-		if (file_exists("/etc/lsb-release")) {
-			$lsb = file_get_contents("/etc/lsb-release");
-			preg_match('!DISTRIB_DESCRIPTION="(.*)"!', $lsb, $distro);
-			$distro = $distro[1];
-		} else do {
-			if (file_exists($distros[1])) {
-				$distro = file_get_contents($distros[1]);
-				$distro = "$distros[0] ".preg_replace("/[^0-9]*([0-9.]+)[^0-9.]{0,1}.*/", "\\1", $distro);
-				break;
-			}
-			array_shift($distros); array_shift($distros);
-		} while (count($distros));
+        // Disk space
+        $fs = "/";
+        $disk_total_space = disk_total_space($fs);
+        $disk_free_space = disk_free_space($fs);
+        $disk_used_space = $disk_total_space - $disk_free_space;
 
-		if (!$distro) {
-			$distro = "Unknown Distro";
-		}
+        echo ("<b>Total HDD: </b>" . round($disk_total_space / (1024 * 1024 * 1024)) . " GB<br />");
+        echo ("<b>HDD Used: </b>" . round($disk_used_space / (1024 * 1024 * 1024)) . " GB<br />");
+        echo ("<b>Percent Used: </b>" . round(($disk_used_space / $disk_total_space) * 100) . " %<br /><hr />");
 
-		$operatingsystem = "$distro ($osarray[0] $osarray[2])";
+        // CPU Information
+        $cpuinfo = file_get_contents('/proc/cpuinfo');
+        preg_match_all('/^model name\s+\:\s+(.*)$/m', $cpuinfo, $modelMatches);
+        $totalCores = count($modelMatches[1]);
+        $cpuModel = $modelMatches[1][0] ?? "Unknown";
 
-	} else {
-		$operatingsystem = "(N/A)";
-	}
+        echo "<b>CPU:</b> $cpuModel<br />";
+        echo "<b>Total Cores:</b> $totalCores<br /><hr />";
 
-	// RAM usage
-	$meminfo = file_get_contents("/proc/meminfo");
-	preg_match("!^MemTotal:\s*(.*) kB!m", $meminfo, $memtotal);
-	$memtotal = $memtotal[1] * 1024;
-	preg_match("!^MemFree:\s*(.*) kB!m", $meminfo, $memfree);
-	$memfree = $memfree[1] * 1024;
-	preg_match("!^Buffers:\s*(.*) kB!m", $meminfo, $buffers);
-	$buffers = $buffers[1] * 1024;
-	preg_match("!^Cached:\s*(.*) kB!m", $meminfo, $cached);
-	$cached = $cached[1] * 1024;
-
-	$memused = mksize($memtotal - $memfree - $buffers - $cached);
-	$memtotal = mksize($memtotal);
-
-
-	//echo("<b>Current Users:</b> $users[0]<br>
-	echo("<b>".T_("CURRENT_LOAD").":</b> $loadnow<br /><b>".T_("LOAD_5_MINS").":</b> $load5<br /><b>".T_("LOAD_15_MINS").":</b> $load15<br /><hr />");
-
-	echo("<b>OS:</b> $operatingsystem<br />");
-	echo("<b>".T_("RAM_USED").":</b> $memused/$memtotal<br />");
-	echo("<b>".T_("UPTIME").":</b> $up<br />");
-
+        // Display server stats
+        echo("<b>" . T_("CURRENT_LOAD") . ":</b> $loadnow<br />");
+        echo("<b>" . T_("LOAD_5_MINS") . ":</b> $load5<br />");
+        echo("<b>" . T_("LOAD_15_MINS") . ":</b> $load15<br /><hr />");
+        echo("<b>PHP Load:</b> $phpload MB<br />");
+        echo("<b>OS:</b> $operatingsystem<br />");
+        echo("<b>" . T_("RAM_USED") . ":</b> $memused of $memtotal<br />");
+        echo("<b>" . T_("UPTIME") . ":</b> $up<br />");
+    }
+    ?>
+    </td>
+    </tr>
+    </table>
+    <?php
+    end_block();
 }
-end_block();
 ?>
