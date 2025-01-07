@@ -4,6 +4,13 @@
 //ini_set('display_startup_errors', 1);
 //error_reporting(E_ALL);
 
+function sqlerr($file = __FILE__, $line = __LINE__) {
+    global $DBconnector; // $DBconnector mysqli connection TTv3
+    $error = $DBconnector->error;
+    error_log("SQL error in $file on line $line: $error");
+    die("An error occurred while executing the query. Please try again later.");
+}
+
 if (function_exists("date_default_timezone_set"))
 	date_default_timezone_set("Europe/London"); // Do NOT change this. All times are converted to user's chosen timezone.
 
