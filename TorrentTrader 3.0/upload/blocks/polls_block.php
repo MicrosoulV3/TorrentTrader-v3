@@ -84,9 +84,12 @@ if ($CURUSER){
         		$os[$i] = array($vs[$i], $o[$i]);
 
     		// now os is an array like this: array(array(123, "Option 1"), array(45, "Option 2"))
-    		if ($arr["sort"] == "yes")
-    			usort($os, srt);
-
+    		// if ($arr["sort"] == "yes")
+    		// 	usort($os, srt);
+		if ($arr["sort"] == "yes") {
+			usort($os, "srt");
+			}
+			
     		print("<table width='100%' border='0' cellspacing='0' cellpadding='0'>\n");
     		$i = 0;
 
