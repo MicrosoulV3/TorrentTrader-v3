@@ -127,10 +127,6 @@ This system check is designed for unix based servers, windows based servers may 
 </tr>
 
 <tr>
-	<td>&nbsp; - suhosin extension (Optional)</td>
-	<td><?php echo extension_loaded( 'suhosin' ) ? '<b><font color="green">Available</font></b><br /><br />Add to your php.ini (otherwise you may have issues):<br />suhosin.get.disallow_nul = Off<br />suhosin.request.disallow_nul = Off' : '<b><font color="red">Unavailable</font></b>'; ?></td>
-</tr>
-<tr>
 	<td>backend/config.php (<b class="unavailable">chmod 444</b>)</td>
 	<td>
 	<?php
