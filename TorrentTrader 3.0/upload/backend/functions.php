@@ -361,14 +361,17 @@ function health($leechers, $seeders) {
 
 // MySQL escaping
 function sqlesc($x) {
-   if (!is_numeric($x)) {
-       $x = "'".mysqli_real_escape_string($GLOBALS["DBconnector"],$x)."'";
-   }
-   return $x;
+    if (is_null($x)) {
+        return "NULL";
+    }
+    if (is_numeric($x)) {
+        return $x;
+    }
+    return "'" . mysqli_real_escape_string($GLOBALS["DBconnector"], $x) . "'";
 }
 
 function unesc($x) {
-    return $x;
+    return stripslashes($x);
 }
 
 /**
