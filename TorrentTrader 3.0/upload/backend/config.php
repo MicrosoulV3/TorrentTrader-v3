@@ -1,6 +1,12 @@
 <?php
+
+// Filesize defines for easier maintainablity. DO NOT CHANGE THESE
+define('KB', 1024);
+define('MB', 1024 * KB);
+define('GB', 1024 * MB);
+
 $site_config = [];
-$site_config['ttversion'] = '3.0';							//DONT CHANGE THIS!
+$site_config['ttversion'] = '3.0'; //DONT CHANGE THIS!
 
 // Main Site Settings
 $site_config['SITENAME'] = 'Testing';					//Site Name
@@ -39,15 +45,13 @@ $site_config['nfo_dir'] = getcwd().'/uploads';
 $site_config['blocks_dir'] = getcwd().'/blocks';
 
 // Image upload settings
-$site_config['image_max_filesize'] = 524288; // Max uploaded image size in bytes (Default: 512 kB)
-$site_config['allowed_image_types'] = array(
-					// "mimetype" => ".ext",
-					"image/gif" => ".gif",
-					"image/pjpeg" => ".jpg",
-					"image/jpeg" => ".jpg",
-					"image/jpg" => ".jpg",
-					"image/png" => ".png"
-				);
+$site_config['image_max_filesize'] = 512 * KB; // Max uploaded image size in bytes (Default: 512 kB)
+$site_config['allowed_image_types'] = [
+    "image/gif" => ".gif",    // GIF format
+    "image/jpeg" => ".jpg",   // Standard JPEG format
+    "image/png" => ".png",    // PNG format
+    "image/webp" => ".webp"   // Modern WebP format
+];
 
 $site_config['SITE_ONLINE'] = true;									//Turn Site on/off
 $site_config['OFFLINEMSG'] = 'Site is down for a little while';	
