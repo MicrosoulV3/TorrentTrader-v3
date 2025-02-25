@@ -12,8 +12,8 @@ if (!empty($_REQUEST["returnto"])) {
 
 if (isset($_POST["username"]) && isset($_POST["password"])) {
     if (!empty($_POST["username"]) && !empty($_POST["password"])) {
-        $username = htmlspecialchars($_POST["username"]);
-        $password = htmlspecialchars($_POST["password"]);
+        $username = $_POST["username"];
+        $password = $_POST["password"];
         $password_hash = passhash($password);
 		$stmt = $GLOBALS["DBconnector"]->prepare("SELECT id, password, secret, status, enabled FROM users WHERE username = ? LIMIT 1");
 		$stmt->bind_param("s", $username);
