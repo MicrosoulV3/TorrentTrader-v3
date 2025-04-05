@@ -183,7 +183,8 @@ function sendmail($to, $subject, $message, $additional_headers = "", $additional
     $GLOBALS["TTMail"]->Send($to, $subject, $message, $additional_headers, $additional_parameters);
 }
 
-// Optional test line. Uncomment this line to test but note that it will send emails in rapid fashion repeatedly if all of your settings are correct. Leave commented unless testing
+// Optional test line. Uncomment this line to test but note that it will send emails in rapid fashion repeatedly if
+// all of your settings are correct. Leave commented unless testing
 // sendmail("email@somesite.com", "Test", "This is a test email from Gmail!"); Add your email to the test line
 ?>
 ```
