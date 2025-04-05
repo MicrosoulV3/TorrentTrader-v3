@@ -1,5 +1,17 @@
-TorrentTrader 2.8 updated to use mysqli and php 7.4. This script is not tested on 8+. If you wanna test it, feel free. Debugging code added to the top of backend/functions.php. Uncomment to use. This release is now named TorrentTrader 3.0
-![](gitimage/1.jpg)
+## 📢 TorrentTrader 3.0 Release
+
+TorrentTrader 2.8 has been upgraded to **TorrentTrader 3.0**, featuring:
+
+- ✅ Updated to use **MySQLi**
+- ✅ Compatible with **PHP 7.4**
+- ⚠️ **Not yet tested on PHP 8+** — feel free to test and report any issues!
+
+For debugging, code has been added to the top of `backend/functions.php`.  
+Just **uncomment** the relevant lines to enable it.
+
+---
+
+![TorrentTrader Screenshot](gitimage/1.jpg)
 
 # Recommended/Optional: Configure PHPMailer for your project to send emails using Gmail Secure Apps
 
