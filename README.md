@@ -13,6 +13,9 @@ Then SSH into your server:
 
 ```bash
 cd /var/www/yoursitefolder/backend/
+```
+Run this command while in the backend folder
+```bash
 composer require phpmailer/phpmailer
 ```
 
