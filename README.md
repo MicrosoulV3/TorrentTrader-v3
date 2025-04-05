@@ -13,17 +13,17 @@ You may need to chmod your site to $USER:www-data to allow the installation of p
 Add this to your config.php replacing the current mail section
 
 // BELOW IS PHPMAILER SETTINGS </br>
-$site_config["mail_type"] = "phpmailer";
-$site_config["mail_smtp_host"] = "smtp.gmail.com";
-$site_config["mail_smtp_port"] = 587;              // Use 587 for TLS (465 is for SSL)
-$site_config["mail_smtp_ssl"] = true;
-$site_config["mail_smtp_auth"] = true;
-$site_config["mail_smtp_user"] = "yourmail@gmail.com"; // Your Gmail address
+$site_config["mail_type"] = "phpmailer"; </br>
+$site_config["mail_smtp_host"] = "smtp.gmail.com"; </br>
+$site_config["mail_smtp_port"] = 587;              // Use 587 for TLS (465 is for SSL) </br>
+$site_config["mail_smtp_ssl"] = true; </br>
+$site_config["mail_smtp_auth"] = true; </br>
+$site_config["mail_smtp_user"] = "yourmail@gmail.com"; // Your Gmail address </br>
 $site_config["mail_smtp_pass"] = "16 characters with no spaces";   // Your Gmail App Password, Not your password to log into your email. Get an APP key, its 16 digits with spaces, remove the spaces. </br>
 
-replace your entire backend/mail.php
+replace your entire backend/mail.php </br>
 
-<?php
+ [code]<?php
 // Require Composer's autoloader for PHPMailer
 require 'vendor/autoload.php';
 
@@ -148,6 +148,6 @@ function sendmail($to, $subject, $message, $additional_headers = "", $additional
 
 // Optional: Test the mail function. If you uncomment this, it will start sending emails in rapid fashion if everything is set properly. Leave commented unless testing
 // sendmail("email@somesite.com", "Test", "This is a test email from Gmail!");
-?>
-
-Go to your google gmail account that you want to use. https://myaccount.google.com and in the search bar, type "app password" and select that option, create an app password. It will have 16 digits with spaces after every 4 chars, just copy/paste that into your config and remove the spaces so its just one long line of 16 chars with no spaces wrapped with quotes (").
+?> [/code]
+</br>
+Go to your google gmail account that you want to use. https://myaccount.google.com and in the search bar, type "app password" and select that option, create an app password. It will have 16 digits with spaces after every 4 chars, just copy/paste that into your config and remove the spaces so its just one long line of 16 chars with no spaces wrapped with quotes ("). </br>
