@@ -12,14 +12,14 @@ You may need to chmod your site to $USER:www-data to allow the installation of p
 
 Add this to your config.php replacing the current mail section
 
-// BELOW IS PHPMAILER SETTINGS
+// BELOW IS PHPMAILER SETTINGS </br>
 $site_config["mail_type"] = "phpmailer";
 $site_config["mail_smtp_host"] = "smtp.gmail.com";
 $site_config["mail_smtp_port"] = 587;              // Use 587 for TLS (465 is for SSL)
 $site_config["mail_smtp_ssl"] = true;
 $site_config["mail_smtp_auth"] = true;
 $site_config["mail_smtp_user"] = "yourmail@gmail.com"; // Your Gmail address
-$site_config["mail_smtp_pass"] = "16 characters with no spaces";   // Your Gmail App Password, Not your password to log into your email. Get an APP key, its 16 digits with spaces, remove the spaces.
+$site_config["mail_smtp_pass"] = "16 characters with no spaces";   // Your Gmail App Password, Not your password to log into your email. Get an APP key, its 16 digits with spaces, remove the spaces. </br>
 
 replace your entire backend/mail.php
 
