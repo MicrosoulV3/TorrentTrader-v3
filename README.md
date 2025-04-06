@@ -13,7 +13,7 @@ Just **uncomment** the relevant lines to enable it.
 
 ![TorrentTrader Screenshot](gitimage/1.jpg)
 
-# Recommended/Optional: Configure PHPMailer for your project to send emails using Gmail Secure Apps. You need to have 2 Factor Auth turned on in your gmail account that you are using. If you dont have this turned on, you will not be able to do this
+# Recommended: Configure PHPMailer for your project to send emails using Gmail Secure Apps. You need to have 2 Factor Auth turned on in your gmail account that you are using. If you dont have this turned on, you will not be able to do this
 
 ## Step 1: Install PHPMailer using Composer
 
