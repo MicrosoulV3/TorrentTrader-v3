@@ -205,6 +205,8 @@ function sendmail($to, $subject, $message, $additional_headers = "", $additional
 
 ## Step 4: Set Up Gmail App Password
 
+Make sure 2 factor authentication is on for the gmail account you want to use.
+
 Go to [https://myaccount.google.com](https://myaccount.google.com), type **"app password"** into the search bar, and create a new app password. DO NOT use the password that logs into the email account
 
 Google will give you a 16-character password **with spaces**. Remove the spaces and use it as your `mail_smtp_pass` in `config.php`.
