@@ -21,7 +21,7 @@ Install PHPMailer into your `backend/` directory. This guide assumes you're usin
 
 First, install [Composer](https://getcomposer.org/) if you haven’t already. You can Google how to install it for your system.
 
-Then SSH into your server:
+Then SSH into your server (make sure you are in the backend/ folder. Thats where the phpmailer files need to be, because your mail.php is there. Its just easier):
 
 ```bash
 cd /var/www/yoursitefolder/backend/
