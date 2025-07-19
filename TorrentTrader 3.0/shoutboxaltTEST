@@ -1,0 +1,148 @@
+<?php
+declare(strict_types=1);
+
+require_once("backend/functions.php");
+dbconn();
+
+if (!$site_config['SHOUTBOX']) {
+    echo T_("SHOUTBOX_DISABLED");
+    exit;
+}
+
+// DELETE MESSAGES
+if (isset($_GET['del']) && is_numeric($_GET['del'])) {
+    $msgid = (int)$_GET['del'];
+    $stmt = $GLOBALS['DBconnector']->prepare("SELECT * FROM shoutbox WHERE msgid = ?");
+    $stmt->bind_param("i", $msgid);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+    $stmt->close();
+
+    if ($row && ($CURUSER["edit_users"] === "yes" || $CURUSER['username'] === $row['user'])) {
+        $stmt = $GLOBALS['DBconnector']->prepare("DELETE FROM shoutbox WHERE msgid = ?");
+        $stmt->bind_param("i", $msgid);
+        $stmt->execute();
+        $stmt->close();
+
+        write_log("<b><font color='orange'>Shout Deleted: </font> Deleted by " . $CURUSER['username'] . "</b>");
+    }
+} elseif (isset($_GET['del'])) {
+    echo "Invalid message ID. STOP TRYING TO INJECT SQL.";
+    exit;
+}
+
+// INSERT MESSAGE
+if (!empty($_POST['message']) && $CURUSER) {
+    $message = trim($_POST['message']);
+    $stmt = $GLOBALS['DBconnector']->prepare(
+        "SELECT COUNT(*) FROM shoutbox WHERE message = ? AND user = ? AND UNIX_TIMESTAMP(?) - UNIX_TIMESTAMP(date) < 30"
+    );
+    $now = get_date_time();
+    $stmt->bind_param("sss", $message, $CURUSER['username'], $now);
+    $stmt->execute();
+    $stmt->bind_result($count);
+    $stmt->fetch();
+    $stmt->close();
+
+    if ($count == 0) {
+        $stmt = $GLOBALS['DBconnector']->prepare(
+            "INSERT INTO shoutbox (msgid, user, message, date, userid) VALUES (NULL, ?, ?, ?, ?)"
+        );
+        $stmt->bind_param("sssi", $CURUSER['username'], $message, $now, $CURUSER['id']);
+        $stmt->execute();
+        $stmt->close();
+    }
+}
+
+// GET THEME
+if ($CURUSER) {
+    $stmt = $GLOBALS['DBconnector']->prepare("SELECT uri FROM stylesheets WHERE id = ?");
+    $stmt->bind_param("i", $CURUSER["stylesheet"]);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+    $stmt->close();
+    $THEME = $row['uri'] ?? '';
+} else {
+    $stmt = $GLOBALS['DBconnector']->prepare("SELECT uri FROM stylesheets WHERE id = ?");
+    $stmt->bind_param("i", $site_config['default_theme']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+    $stmt->close();
+    $THEME = $row['uri'] ?? '';
+}
+
+$is_history = isset($_GET['history']);
+
+if (!$is_history) {
+    echo "<html><head><title>{$site_config['SITENAME']} " . T_("SHOUTBOX") . "</title>";
+    echo '<meta http-equiv="refresh" content="300" />';
+    echo '<link rel="stylesheet" type="text/css" href="' . $site_config['SITEURL'] . '/themes/' . htmlspecialchars($THEME) . '/theme.css" />';
+    echo '<script type="text/javascript" src="' . $site_config['SITEURL'] . '/backend/java_klappe.js"></script>';
+    echo '</head><body class="shoutbox_body">';
+    echo '<div class="shoutbox_contain"><table border="0" style="width: 99%; table-layout:fixed">';
+} else {
+    if ($site_config["MEMBERSONLY"]) loggedinonly();
+    stdhead();
+    begin_frame(T_("SHOUTBOX_HISTORY"));
+    echo '<div class="shoutbox_history">';
+
+    $result = SQL_Query_exec('SELECT COUNT(*) FROM shoutbox');
+    $row = mysqli_fetch_row($result);
+    $total = (int)$row[0];
+    $pages = (int)ceil($total / 100);
+
+    echo '<div align="center">Pages: ';
+    for ($i = 1; $i <= $pages; $i++) {
+        echo "<a href='{$site_config['SITEURL']}/shoutbox.php?history=1&amp;page=$i'>[$i]</a>&nbsp;";
+    }
+    echo '</div><br /><table border="0" style="width: 99%; table-layout:fixed">';
+}
+
+$limit = $is_history ? 100 : 20;
+$offset = 0;
+if ($is_history && isset($_GET['page']) && is_numeric($_GET['page']) && (int)$_GET['page'] > 1) {
+    $offset = ((int)$_GET['page'] - 1) * 100;
+}
+
+$query = 'SELECT * FROM shoutbox ORDER BY msgid DESC LIMIT ?, ?';
+$stmt = $GLOBALS['DBconnector']->prepare($query);
+$stmt->bind_param("ii", $offset, $limit);
+$stmt->execute();
+$result = $stmt->get_result();
+
+$alt = false;
+while ($row = $result->fetch_assoc()) {
+    echo '<tr class="' . ($alt ? 'shoutbox_noalt' : 'shoutbox_alt') . '">';
+    $alt = !$alt;
+
+    echo '<td style="font-size: 9px; width: 118px;">';
+    echo "<div align='left' style='float: left'>" . date('jS M, g:ia', utc_to_tz_time($row['date'])) . "</div>";
+    if ($CURUSER["edit_users"] === "yes" || $CURUSER['username'] === $row['user']) {
+        echo "<div align='right' style='float: right'><a href='{$site_config['SITEURL']}/shoutbox.php?del={$row['msgid']}' style='font-size: 8px'>[D]</a></div>";
+    }
+    echo '</td><td style="font-size: 12px; padding-left: 5px">';
+    echo '<a href="' . $site_config['SITEURL'] . '/account-details.php?id=' . $row['userid'] . '" target="_parent"><b>' . htmlspecialchars($row['user']) . ':</b></a>&nbsp;&nbsp;' . nl2br(format_comment($row['message'])) . '</td></tr>';
+}
+$stmt->close();
+
+if (!$is_history) {
+    if (isset($_COOKIE["pass"])) {
+        echo "<form name='shoutboxform' action='shoutbox.php' method='post'>";
+        echo "<center><table width='100%' border='0' cellpadding='1' cellspacing='1'>";
+        echo "<tr class='shoutbox_messageboxback'>";
+        echo "<td width='75%' align='center'><input type='text' name='message' class='shoutbox_msgbox' /></td>";
+        echo "<td><input type='submit' name='submit' value='" . T_("SHOUT") . "' class='shoutbox_shoutbtn' /></td>";
+        echo "<td><a href=\"javascript:PopMoreSmiles('shoutboxform', 'message');\"><small>" . T_("MORE_SMILIES") . "</small></a> <small>-</small> <a href=\"javascript:PopMoreTags();\"><small>" . T_("TAGS") . "</small></a><br />";
+        echo "<a href='shoutbox.php'><small>" . T_("REFRESH") . "</small></a> <small>-</small> <a href='{$site_config['SITEURL']}/shoutbox.php?history=1' target='_blank'><small>" . T_("HISTORY") . "</small></a></td></tr></table></center></form>";
+    } else {
+        echo "<br /><div class='shoutbox_error'>" . T_("SHOUTBOX_MUST_LOGIN") . "</div>";
+    }
+    echo "</body></html>";
+} else {
+    echo "</table></div><br />";
+    end_frame();
+    stdfoot();
+}
