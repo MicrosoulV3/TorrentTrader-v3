@@ -200,13 +200,32 @@ function userlogin() {
 	unset($row);
 }
 
-function logincookie($id, $password, $secret, $updatedb = 1, $expires = 0x7fffffff) {
-	$hash = sha1($id.$secret.$password.getip().$secret);
-	setcookie("pass", $hash, $expires, "/");
-	setcookie("uid", $id, $expires, "/");
+// function logincookie($id, $password, $secret, $updatedb = 1, $expires = 0x7fffffff) {
+// 	$hash = sha1($id.$secret.$password.getip().$secret);
+// 	setcookie("pass", $hash, $expires, "/");
+// 	setcookie("uid", $id, $expires, "/");
 
-	if ($updatedb)
-		SQL_Query_exec("UPDATE users SET last_login = '".get_date_time()."' WHERE id = $id");
+// 	if ($updatedb)
+// 		SQL_Query_exec("UPDATE users SET last_login = '".get_date_time()."' WHERE id = $id");
+// }
+//NEW LOGIN COOKIE FUNCTION
+function logincookie($id, $password, $secret, $updatedb = true, $expires = null) {
+    if ($expires === null) {
+        $expires = time() + (30 * 24 * 60 * 60); // Extend 30 days from now on each visit
+    }
+
+    $hash = sha1($id . $secret . $password . getip() . $secret);
+    
+    // Set secure cookies with a rolling expiration
+    setcookie("pass", $hash, $expires, "/", "", true, true);
+    setcookie("uid", $id, $expires, "/", "", true, true);
+
+    if ($updatedb) {
+        $stmt = $GLOBALS["DBconnector"]->prepare("UPDATE users SET last_login = ? WHERE id = ?");
+        $stmt->bind_param("si", get_date_time(), $id);
+        $stmt->execute();
+        $stmt->close();
+    }
 }
 
 //NEW COOKIE LOGOUT FUNCTION
