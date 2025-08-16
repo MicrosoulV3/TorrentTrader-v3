@@ -392,29 +392,6 @@ function sendmail($to, $subject, $message, $additional_headers = "", $additional
     $GLOBALS["TTMail"] = new TTMail;
     return $GLOBALS["TTMail"]->Send($to, $subject, $message, $additional_headers, $additional_parameters);
 }
-
-// Example usage for password recovery
-/*
-$user_email = "user@example.com";
-$site_url = $site_config["SITEURL"] ?? "https://example.com";
-$resetLink = $site_url . "/reset-password?token=your-token"; // User-specific token
-if (sendmail($user_email, "Password Reset", "Click to reset your password: $resetLink\nThis link expires in 1 hour.")) {
-    echo "Password reset email sent.";
-} else {
-    echo "Failed to send reset email.";
-}
-*/
-
-// Example usage for mass email
-/*
-$recipients = ["user1@example.com", "user2@example.com"];
-$TTMail = new TTMail;
-if ($TTMail->SendMassEmails($recipients, "Site Maintenance", "Our site will be down for maintenance on Aug 13, 2025.")) {
-    echo "Mass emails sent.";
-} else {
-    echo "Failed to send mass emails.";
-}
-*/
 ?>
 ```
 
