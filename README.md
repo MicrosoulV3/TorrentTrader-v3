@@ -53,7 +53,7 @@ Replace your current mail settings with:
 // BELOW IS PHPMAILER SETTINGS
 $site_config["mail_type"] = "phpmailer";
 $site_config["mail_smtp_host"] = "smtp.gmail.com";
-$site_config["mail_smtp_port"] = 587; // Use 587 for TLS (465 is for SSL)
+$site_config["mail_smtp_port"] = 587;
 $site_config["mail_smtp_ssl"] = true;
 $site_config["mail_smtp_auth"] = true;
 $site_config["mail_smtp_user"] = "yourmail@gmail.com"; // Your Gmail address
