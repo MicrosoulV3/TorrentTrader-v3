@@ -230,28 +230,17 @@ function logincookie($id, $password, $secret, $updatedb = true, $expires = null)
 
 //NEW COOKIE LOGOUT FUNCTION
 function logoutcookie() {
-    // Start session and ensure it’s valid
-    if (!session_start()) {
-        return false;
+    if (session_status() === PHP_SESSION_ACTIVE) {
+        $_SESSION = [];
+        session_unset();
+        session_destroy();
+        session_write_close();
     }
-
-    // Clear session data
-    session_unset();
-    session_destroy();
-    session_write_close();
-
-    // Get session cookie parameters
     $params = session_get_cookie_params();
-
-    // Clear session cookie
     setcookie(session_name(), '', time() - 3600, $params['path'], $params['domain'], $params['secure'], $params['httponly']);
-
-    // Clear other cookies
-    $cookies = ['pass', 'uid'];
-    foreach ($cookies as $cookie) {
+    foreach (['pass', 'uid'] as $cookie) {
         setcookie($cookie, '', time() - 3600, $params['path'], $params['domain'], true, true);
     }
-
     return true;
 }
 
