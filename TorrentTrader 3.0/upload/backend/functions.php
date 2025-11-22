@@ -4,6 +4,14 @@
 //ini_set('display_startup_errors', 1);
 //error_reporting(E_ALL);
 
+// Fix for OB issues changing password in account.php and notice warnings
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+ob_start();
+// END
+
 function sqlerr($file = __FILE__, $line = __LINE__) {
     global $DBconnector; // $DBconnector mysqli connection TTv3
     $error = $DBconnector->error;
