@@ -1,5 +1,6 @@
 <?php
 require_once("backend/functions.php");
+require_once("themes/default/block.php");
 dbconn();
 session_start();
 
