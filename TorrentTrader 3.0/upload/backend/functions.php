@@ -5,10 +5,6 @@
 //error_reporting(E_ALL);
 
 // Fix for OB issues changing password in account.php and notice warnings
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
 ob_start();
 // END
 
