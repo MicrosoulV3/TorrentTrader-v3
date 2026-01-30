@@ -1,9 +1,17 @@
 <?php
 
-// Filesize defines for easier maintainablity. DO NOT CHANGE THESE
+// DO NOT MODIFY. Files that call the config can use these defines
+// Filesize Constants
 define('KB', 1024);
 define('MB', 1024 * KB);
 define('GB', 1024 * MB);
+
+// Time Constants
+define('MINUTE', 60);
+define('HOUR', 60 * MINUTE);
+define('DAY', 24 * HOUR);
+define('WEEK', 7 * DAY);
+// End defines
 
 $site_config = [];
 $site_config['ttversion'] = '3.0'; //DONT CHANGE THIS!
