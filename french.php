@@ -1,5 +1,5 @@
 <?php
-// TTv3 french lang
+//  TTv3 french lang courtesy of Tiloup
 //  Special Edition 2016/17
 //  Tiloup
 //  http://support-tt-france.fr
