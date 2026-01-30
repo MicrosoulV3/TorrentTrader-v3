@@ -4,7 +4,7 @@
 // Otherwise, copy them to any file that is called for the page you require constants. DO NOT insert directly into an array
 // paste this outside of the array, top of the file just under the open php tag is best
 
-// Filesize Constants
+// Filesize Constants - Start copy
 define('KB', 1024);
 define('MB', 1024 * KB);
 define('GB', 1024 * MB);
@@ -14,7 +14,7 @@ define('MINUTE', 60);
 define('HOUR', 60 * MINUTE);
 define('DAY', 24 * HOUR);
 define('WEEK', 7 * DAY);
-// End defines. End copy
+// End defines - End copy
 
 $site_config = [];
 $site_config['ttversion'] = '3.0'; //DONT CHANGE THIS!
