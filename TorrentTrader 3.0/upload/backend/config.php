@@ -1,6 +1,8 @@
 <?php
 
 // DO NOT MODIFY. Files that call the config can use these defines
+// Otherwise, copy them to any file that is called for the page you require constants
+
 // Filesize Constants
 define('KB', 1024);
 define('MB', 1024 * KB);
@@ -11,7 +13,7 @@ define('MINUTE', 60);
 define('HOUR', 60 * MINUTE);
 define('DAY', 24 * HOUR);
 define('WEEK', 7 * DAY);
-// End defines
+// End defines. End copy
 
 $site_config = [];
 $site_config['ttversion'] = '3.0'; //DONT CHANGE THIS!
