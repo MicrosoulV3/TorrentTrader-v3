@@ -1,9 +1,10 @@
 <?php
-//  TTv3 french lang courtesy of Tiloup
-//  Special Edition 2016/17
+//  Ce fichier peut nécessiter des modifications pour s’adapter à vos besoins. Ajustez-le si nécessaire
+//  Langue française TTv3 avec l’aimable autorisation de Tiloup
+//  Édition spéciale 2016/17
 //  Tiloup
 //  http://support-tt-france.fr
-//
+
 $LANG = array();
 $LANG["PLURAL_FORMS"] = "n != 1";
 
