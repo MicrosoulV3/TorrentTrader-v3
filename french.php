@@ -1,22 +1,5 @@
 <?php
-//
-//  TorrentTrader v2.x
-//  English language file
-//  $LastChangedDate: 2012-09-19 19:13:35 +0100 (Wed, 19 Sep 2012) $
-//  $LastChangedBy: torrenttrader $
-//
-//  http://www.torrenttrader.org
-//
-//
-// Plural forms: http://www.gnu.org/software/hello/manual/gettext/Plural-forms.html
-// $LANG["PLURAL_FORMS"] is in the plural= format
-//
-/* Contributors:
-	TorrentialStorm
-	djhowarth
-	ArcticWolf
-    AzuriS
-*/
+// TTv3 french lang
 //  Special Edition 2016/17
 //  Tiloup
 //  http://support-tt-france.fr
