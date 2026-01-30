@@ -1,7 +1,8 @@
 <?php
 
 // DO NOT MODIFY. Files that call the config can use these defines
-// Otherwise, copy them to any file that is called for the page you require constants. DO NOT insert into an array
+// Otherwise, copy them to any file that is called for the page you require constants. DO NOT insert directly into an array
+// paste this outside of the array, top of the file just under the open php tag is best
 
 // Filesize Constants
 define('KB', 1024);
