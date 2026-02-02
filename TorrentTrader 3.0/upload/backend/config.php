@@ -104,12 +104,12 @@ $site_config['WAITD'] = '2';			//If neither are met, wait time in hours
 
 //CLEANUP AND ANNOUNCE SETTINGS
 $site_config['PEERLIMIT'] = '10000';			//LIMIT NUMBER OF PEERS GIVEN IN EACH ANNOUNCE
-$site_config['autoclean_interval'] = '600';		//Time between each auto cleanup (Seconds)
+$site_config['autoclean_interval'] = '10 * MINUTE';		//Time between each auto cleanup
 $site_config['LOGCLEAN'] = 28 * DAY;			// How often to delete old entries. (Default: 28 days)
-$site_config['announce_interval'] = '900';		//Announce Interval (Seconds)
-$site_config['signup_timeout'] = '259200';		//Time a user stays as pending before being deleted(Seconds)
+$site_config['announce_interval'] = '15 * MINUTE';		//Announce Interval
+$site_config['signup_timeout'] = '3 * DAY';		//Time a user stays as pending before being deleted
 $site_config['maxsiteusers'] = '10000';			//Maximum site members
-$site_config['max_dead_torrent_time'] = '21600';//Time until torrents that are dead are set invisible (Seconds)
+$site_config['max_dead_torrent_time'] = '6 * HOUR';//Time until torrents that are dead are set invisible
 
 //AUTO RATIO WARNING
 $site_config["ratiowarn_enable"] = true; //Enable/Disable auto ratio warning
