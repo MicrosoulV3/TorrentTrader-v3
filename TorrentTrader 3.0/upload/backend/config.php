@@ -105,7 +105,7 @@ $site_config['WAITD'] = '2';			//If neither are met, wait time in hours
 //CLEANUP AND ANNOUNCE SETTINGS
 $site_config['PEERLIMIT'] = '10000';			//LIMIT NUMBER OF PEERS GIVEN IN EACH ANNOUNCE
 $site_config['autoclean_interval'] = '600';		//Time between each auto cleanup (Seconds)
-$site_config['LOGCLEAN'] = 28 * 86400;			// How often to delete old entries. (Default: 28 days)
+$site_config['LOGCLEAN'] = 28 * DAY;			// How often to delete old entries. (Default: 28 days)
 $site_config['announce_interval'] = '900';		//Announce Interval (Seconds)
 $site_config['signup_timeout'] = '259200';		//Time a user stays as pending before being deleted(Seconds)
 $site_config['maxsiteusers'] = '10000';			//Maximum site members
