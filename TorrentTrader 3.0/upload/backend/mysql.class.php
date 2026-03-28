@@ -3,13 +3,26 @@ function SQL_Query(string $query) {
     return new SQL_Query($query);
 }
 
-function SQL_Query_exec(string $query) {
+function SQL_Query_exec(string $query)
+{
+    $db = $GLOBALS['DBconnector'] ?? null;
+
+    if (!$db instanceof mysqli) {
+        error_log("SQL_Query_exec Error: Database connection is not available.");
+        return false;
+    }
+
     try {
-        $sql = new SQL_Query($query);
-        return $sql->execute();
-    } catch (Exception $e) {
-        error_log("SQL Query Execution Error: " . $e->getMessage());
-        return null;
+        $result = mysqli_query($db, $query);
+
+        if ($result === false) {
+            throw new Exception(mysqli_error($db));
+        }
+
+        return $result;
+    } catch (Throwable $e) {
+        error_log("SQL_Query_exec Error: " . $e->getMessage() . " | Query: " . $query);
+        return false;
     }
 }
 
