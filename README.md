@@ -4,7 +4,7 @@ TorrentTrader 2.8 has been upgraded to **TorrentTrader 3.0**, featuring:
 
 - ✅ Updated to use **MySQLi**
 - ✅ Compatible with **PHP 7.4**
-- ⚠️ **Not yet tested on PHP 8+** — feel free to test and report any issues!
+- ⚠️ **Not tested on PHP 8+**
 
 For debugging, code has been added to the top of `backend/functions.php`.  
 Just **uncomment** the relevant lines to enable it.
