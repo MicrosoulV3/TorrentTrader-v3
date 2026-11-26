@@ -18,17 +18,24 @@ function sqlerr($file = __FILE__, $line = __LINE__) {
 if (function_exists("date_default_timezone_set"))
 	date_default_timezone_set("Europe/London"); // Do NOT change this. All times are converted to user's chosen timezone.
 
-///mysql_result replacement for php 7+. Change all mysql_result to mysqli_result in all TT files. mysql_result deprercated/removed, so emulate it.
-function mysqli_result($res,$row=0,$col=0){
-    $numrows = mysqli_num_rows($res);
-    if ($numrows && $row <= ($numrows-1) && $row >=0){
-        mysqli_data_seek($res,$row);
-        $resrow = (is_numeric($col)) ? mysqli_fetch_row($res) : mysqli_fetch_assoc($res);
-        if (isset($resrow[$col])){
-            return $resrow[$col];
-        }
-    }
-    return false;
+// mysql_result deprercated/removed, so emulate it.
+function mysqli_result($res, $row = 0, $col = 0)
+{
+	if (!$res instanceof mysqli_result) {
+		return false;
+	}
+	$row = (int) $row;
+	if ($row < 0 || $row >= $res->num_rows) {
+		return false;
+	}
+	if (!$res->data_seek($row)) {
+		return false;
+	}
+	$resrow = $res->fetch_array(MYSQLI_BOTH);
+	if (!is_array($resrow)) {
+		return false;
+	}
+	return array_key_exists($col, $resrow) ? $resrow[$col] : false;
 }
 ///end mysql_result replacement
 
